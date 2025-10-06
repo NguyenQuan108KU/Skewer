@@ -1,5 +1,6 @@
 
 
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -18,7 +19,9 @@ public class GrillVisual : MonoBehaviour
     if (sortingGroup != null) sortingGroup.enabled = false;
   }
 
-
+  public virtual void UpdateSubGrill()
+  {
+  }
   public virtual void SetDefaultGrill(GrillData grillData)
   {
     SetVisual();
@@ -39,10 +42,28 @@ public class GrillVisual : MonoBehaviour
   public void UnHighlightGrill()
   {
     // stove.material = GameResourceReference.Instance.itemMaterials[0];
-    if (sortingGroup != null)
+    // if (sortingGroup != null)
+    // {
+    //   sortingGroup.enabled = false;
+    //   sortingGroup.sortingLayerName = "Object";
+    // }
+  }
+
+  public virtual void OpenGrill(bool doEffect = true)
+  {
+    lid.transform.DOKill();
+
+    if (doEffect)
     {
-      sortingGroup.enabled = false;
-      sortingGroup.sortingLayerName = "Object";
+      lid.transform.localScale = Vector3.one;
+      lid.gameObject.SetActive(true);
+      lid.transform.DOLocalMoveY(2.5f, GameDefine.grillLidAnim).From(defaultLidPos).SetEase(Ease.OutQuad);
+      lid.transform.DOScale(0.95f, GameDefine.grillLidAnim);
+      lid.DOFade(0, GameDefine.grillLidAnim).SetEase(Ease.InQuad).OnComplete(() => { lid.gameObject.SetActive(false); });
+    }
+    else
+    {
+      lid.gameObject.SetActive(false);
     }
   }
 }

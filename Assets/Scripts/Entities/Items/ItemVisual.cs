@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class ItemVisual : MonoBehaviour
 {
+  [SerializeField] protected Item item;
   [SerializeField] private SpriteRenderer spriteRenderer;
+
 
   public void SetVisual(int id)
   {
-    // ItemDataSO itemData = LevelGenerator.Instance.GetItemData(id);
-    // if (itemData != null)
-    // {
-    //   spriteRenderer.sprite = itemData.sprite;
-    // }
+    ItemDataSO itemData = LevelGenerator.Instance.GetItemData(id);
+    if (itemData != null)
+    {
+      spriteRenderer.sprite = itemData.sprite;
+    }
   }
 
   public void SetPrimary(bool isPrimary)
@@ -48,5 +50,9 @@ public class ItemVisual : MonoBehaviour
   public Sprite GetSprite()
   {
     return spriteRenderer.sprite;
+  }
+  public void SetSortingOrder(int sortingOrder)
+  {
+    // sortingGroup.sortingOrder = sortingOrder;
   }
 }

@@ -1,0 +1,55 @@
+
+
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class WaitingGrillManager : MonoBehaviour
+{
+  [SerializeField] private Transform centerRefPoint;
+  [SerializeField] private float distance = 1.2f;
+  private List<WaitingGrill> listWaitingGrills = new List<WaitingGrill>();
+
+  public List<WaitingGrill> ListWaitingGrills => listWaitingGrills;
+
+
+
+  public void SetData(int numberOfWaitingGrill)
+  {
+    for (int i = 0; i < numberOfWaitingGrill; i++)
+    {
+      var waitingGrill = Instantiate(PrefabManager.Instance.waitingGrill, transform).GetComponent<WaitingGrill>();
+      waitingGrill.SetActive(true);
+      listWaitingGrills.Add(waitingGrill);
+    }
+    GameplayUtils.AlignObjects(transform, distance);
+  }
+
+
+  public (WaitingGrill waitingGrill, SlotBase slot) GetDestinationSlot()
+  {
+    foreach (var waitingGrill in listWaitingGrills)
+    {
+      if (waitingGrill.IsActive == false) continue;
+      var slot = waitingGrill.GetSlot(0);
+      if (slot.GetItem() == null)
+      {
+        return (waitingGrill, slot);
+      }
+    }
+
+    return (null, null);
+  }
+
+  public bool CheckClearAllItems()
+  {
+    foreach (var waitingGrill in listWaitingGrills)
+    {
+      if (waitingGrill.IsActive && waitingGrill.GetSlots().Where(e => e.GetItem() != null).Count() != 0)
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+}

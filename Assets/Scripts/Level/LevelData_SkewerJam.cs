@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -9,7 +10,23 @@ public class LevelData_SkewerJam : LevelData
   public int numberOfWaitingGrill;
   public RescueCondition rescueCondition;
 
-  public LogicOrderConfig[] logicOrderConfigs;
+  public List<LogicOrderConfig> logicOrderConfigs;
+  public LevelData_SkewerJam CloneSkewerJam()
+  {
+    var levelData = base.Clone();
+
+    var levelDataSkewerJam = new LevelData_SkewerJam()
+    {
+      difficulty = levelData.difficulty,
+
+      grillData = levelData.grillData,
+      orderData = levelData.orderData,
+      numberOfWaitingGrill = this.numberOfWaitingGrill,
+      rescueCondition = this.rescueCondition,
+      logicOrderConfigs = this.logicOrderConfigs,
+    };
+    return levelDataSkewerJam;
+  }
 }
 
 

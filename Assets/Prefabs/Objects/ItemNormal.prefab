@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b01aa286fe45514f94a0d7ddf7558bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   spriteRenderer: {fileID: 5054861824484167665}
 --- !u!1 &7555676276440181657
 GameObject:
@@ -222,7 +223,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  itemType: 0
   isPrimary: 0
   offsetY: 1.65
-  visual: {fileID: 0}
+  visual: {fileID: 2390829016816788173}
   boxCollider: {fileID: 7599346679238939861}
+  itemBehaviorSO: {fileID: 11400000, guid: e7dd50d54847cee4ebdc28c207ef350d, type: 2}

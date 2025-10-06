@@ -118,6 +118,7 @@ MonoBehaviour:
   - {fileID: 7211399795958396874}
   - {fileID: 5091869253666230138}
   - {fileID: 6996221774739172089}
+  grillBaseBehaviorSO: {fileID: 11400000, guid: 2749e1dc3d750254dbca4fb3243fc98c, type: 2}
   container: {fileID: 6587540464893490454}
   subContainer: {fileID: 6730875540071726136}
   grillVisual: {fileID: 50614590727000453}
@@ -315,8 +316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059a31a4cdbc9264eb0fd4631ce91f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grill: {fileID: 0}
-  container: {fileID: 0}
+  grill: {fileID: 8877404175476191423}
+  container: {fileID: 8110576646437883150}
 --- !u!61 &3065158847292488229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -409,7 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stove: {fileID: 5895998666502093465}
-  lid: {fileID: 5895998666502093465}
+  lid: {fileID: 3729440506567530423}
   sortingGroup: {fileID: 0}
   lidType: 
   stoveType: 
@@ -574,8 +575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059a31a4cdbc9264eb0fd4631ce91f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grill: {fileID: 0}
-  container: {fileID: 0}
+  grill: {fileID: 8877404175476191423}
+  container: {fileID: 914926034637136556}
 --- !u!61 &8350352097073263318
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -667,8 +668,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059a31a4cdbc9264eb0fd4631ce91f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grill: {fileID: 0}
-  container: {fileID: 0}
+  grill: {fileID: 8877404175476191423}
+  container: {fileID: 6815071541127250498}
 --- !u!61 &1270205154426173442
 BoxCollider2D:
   m_ObjectHideFlags: 0

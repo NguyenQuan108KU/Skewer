@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class PrimaryGrill : GrillBase
@@ -22,6 +23,125 @@ public class PrimaryGrill : GrillBase
   public Action<PrimaryGrill> onMainLayerComplete;
   public Transform SubContainer => subContainer;
 
+  public int SlotCount => slots.Length;
+
+
+  public void SetData(GrillData grillData)
+  {
+    grillVisual.SetDefaultGrill(grillData);
+    this.grillData = grillData;
+    id = grillData.id;
+    transform.position = grillData.position.ToVector3();
+    SetSlotId();
+
+    if (this.grillData.layer != null && this.grillData.layer.Count > 0)
+    {
+      SetLayer(grillData.layer[0]);
+      if (grillData.layer.Count > 1)
+      {
+        subGrills = new List<SubGrill>();
+        SetSubGrills();
+      }
+
+    }
+    OpenGrill();
+  }
+  public virtual void OpenGrill()
+  {
+    DOVirtual.DelayedCall(0.75f, () => grillVisual.OpenGrill(), this);
+  }
+  protected virtual void SetSubGrills()
+  {
+    int layer = 0;
+    for (int i = this.grillData.layer.Count - 1; i > 0; i--)
+    {
+      var subGrill = CreateSubGrill(layer);
+      subGrill.SetData(this, this.grillData.layer[i], layer);
+      if (i == 1)
+      {
+        subGrill.Show();
+      }
+      subGrills.Insert(0, subGrill);
+      layer++;
+    }
+  }
+  public virtual List<SubGrill> GetSubGrills()
+  {
+    return subGrills;
+  }
+  public virtual void SetSlotId()
+  {
+    for (int i = 0; i < slots.Length; i++)
+    {
+      slots[i].SetId(this.id * 1000 + i);
+    }
+  }
+
+  protected virtual SubGrill CreateSubGrill(int layer)
+  {
+    Vector3 pos = subContainer.position + Vector3.up * layer * 0.035f + Vector3.back * layer * 0.03f + subOffset;
+    string subGrillName = "SubGrillNormal";
+    SubGrill subGrill = Instantiate(PrefabManager.Instance.subGrillNormal, subContainer).GetComponent<SubGrill>();
+    subGrill.name = subGrillName;
+    subGrill.transform.position = pos;
+
+    return subGrill;
+  }
+
+  public virtual List<ShuffleLayerData> GetSubsShuffleLayerData()
+  {
+    List<ShuffleLayerData> data = new List<ShuffleLayerData>();
+    if (subGrills != null)
+    {
+      foreach (var subGrill in subGrills)
+      {
+        data.Add(subGrill.GetShuffleLayerData());
+      }
+    }
+
+    return data;
+  }
+  public override ShuffleLayerData GetShuffleLayerData()
+  {
+    return new ShuffleLayerData()
+    {
+      canNotShuffle = !CanShuffle(),
+      grill = this,
+      layerData = GetCurrentData()
+    };
+  }
+  public virtual bool CanShuffle()
+  {
+    if (IsLock) return false;
+    foreach (var slot in slots)
+    {
+      var item = slot.GetItem();
+      if (item != null && item.Data != null)
+      {
+        if (item.itemType == ItemType.Ice || item.itemType == ItemType.Bomb || item.itemType == ItemType.Key || item.itemType == ItemType.Key2) return false;
+      }
+    }
+
+    return true;
+  }
+  public virtual LayerData GetCurrentData()
+  {
+    LayerData _layerData = new LayerData(slots.Length);
+    for (int i = 0; i < slots.Length; i++)
+    {
+      var item = slots[i].GetItem();
+      if (item != null && item.Data != null)
+      {
+        _layerData.itemData[i] = item.GetCurrentItemData();
+      }
+      else
+      {
+        _layerData.itemData[i] = new ItemData() { id = 0 };
+      }
+    }
+
+    return _layerData;
+  }
   public override void ChangeItem(SlotBase selectedSlot, int newId)
   {
     foreach (var slot in slots)
@@ -45,10 +165,66 @@ public class PrimaryGrill : GrillBase
       }
     }
   }
+  protected virtual void UpdateSubGrills()
+  {
+    isProcess = false;
+    grillVisual.UpdateSubGrill();
+    if (subGrills == null || subGrills.Count == 0) return;
+    subGrills[0].MoveUpPrimary();
+    subGrills.RemoveAt(0);
+    if (subGrills.Count > 0)
+    {
+      subGrills[0].Show();
+    }
+
+    // if (IsLock)
+    //   SetLockItems(IsLock);
+  }
+
+  public virtual void CheckEmpty()
+  {
+    foreach (var slot in slots)
+    {
+      if (!slot.isEmpty()) return;
+    }
+
+    UpdateSubGrills();
+    onMainLayerEmpty?.Invoke(this);
+  }
+
+  public override void OnSlotUpdated(SlotBase slot)
+  {
+    base.OnSlotUpdated(slot);
+    if (slot.isEmpty())
+    {
+      CheckEmpty();
+    }
+
+    CheckComplete();
+
+
+    //SonatUtils.DelayCall(0.1f, () => { GameplayController.instance.CheckOutOfMove(); }, this);
+    grillBaseBehaviorSO.OnSlotUpdated(slot);
+  }
+
+  public virtual void CheckComplete()
+  {
+    if (SlotCount == 1) return;
+    int id = 0;
+    foreach (var slot in slots)
+    {
+      if (slot.isEmpty()) return;
+      if (id == 0) id = slot.GetItem().id;
+      else if (id != slot.GetItem().id) return;
+    }
+
+  }
+
+
 
   public virtual void AddFromSub(Item item, int slotIndex, int index)
   {
-
+    grillBaseBehaviorSO.OnAddFromSub(this, item, slotIndex, index);
   }
   public override bool CheckItemWithId(int id)
   {

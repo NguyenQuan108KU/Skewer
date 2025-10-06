@@ -11,6 +11,17 @@ public class LevelData
 {
   public List<GrillData> grillData;
   public List<OrderData> orderData;
+  public LevelDifficulty difficulty;
+
+  public virtual LevelData Clone()
+  {
+    LevelData levelData = new LevelData();
+    levelData.difficulty = this.difficulty;
+
+    levelData.grillData = new List<GrillData>(grillData);
+
+    return levelData;
+  }
 }
 [Serializable]
 public class LayerData

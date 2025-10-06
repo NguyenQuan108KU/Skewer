@@ -17,9 +17,12 @@ public class SubGrill : GrillBase
     this.layerData = layerData;
     primaryGrill = grill;
     // sortingGroup.sortingOrder = index + 2;
+    SetVisual();
   }
 
-
+  protected virtual void SetVisual()
+  {
+  }
   public void Show()
   {
     SetLayer(layerData);
@@ -54,5 +57,41 @@ public class SubGrill : GrillBase
   public override void ChangeItem(SlotBase slot, int newId)
   {
 
+  }
+
+  public override ShuffleLayerData GetShuffleLayerData()
+  {
+    return new ShuffleLayerData()
+    {
+      grill = this,
+      layerData = GetCurrentData()
+    };
+  }
+
+
+  public LayerData GetCurrentData()
+  {
+    if (!showed)
+    {
+      return layerData;
+    }
+    else
+    {
+      LayerData _layerData = new LayerData(slots.Length);
+      for (int i = 0; i < slots.Length; i++)
+      {
+        var item = slots[i].GetItem();
+        if (item != null && item.Data != null)
+        {
+          _layerData.itemData[i] = item.Data.Clone();
+        }
+        else
+        {
+          _layerData.itemData[i] = new ItemData();
+        }
+      }
+
+      return _layerData;
+    }
   }
 }

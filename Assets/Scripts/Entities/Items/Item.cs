@@ -8,17 +8,30 @@ using UnityEngine;
 public class Item : EntityBase
 {
   public override EntityType entityType => EntityType.Item;
+
+  public ItemType itemType;
   [HideInInspector] public bool isPrimary;
   [SerializeField] private float offsetY = 0.5f;
 
   [SerializeField] private ItemVisual visual;
   [SerializeField] private BoxCollider2D boxCollider;
+
+  [Header("Behavior SO")]
+  [SerializeField] protected ItemBehaviorSO itemBehaviorSO;
+
+  public ItemBehaviorSO ItemBehaviorSO => itemBehaviorSO;
+
   private ItemData data;
   public ItemData Data => data;
   private SlotBase slot;
   private ItemPlaceHolder placeHolder;
   private Vector3 offset;
-
+  public ItemVisual Visual => visual;
+  public SlotBase Slot => slot;
+  protected bool locked;
+  public bool IsLocked => locked;
+  public bool IsSelected { get => _isSelected; set => _isSelected = value; }
+  protected bool isProcessing;
   public void SetItemData(ItemData data, SlotBase slot)
   {
     this.data = data;
@@ -39,6 +52,15 @@ public class Item : EntityBase
   {
   }
 
+  public virtual void SetSlot(SlotBase slot)
+  {
+    this.slot = slot;
+  }
+  public virtual void SetLockState(bool lockState)
+  {
+    if (boxCollider)
+      boxCollider.enabled = !lockState;
+  }
   public void SetPrimary(bool isPrimary)
   {
     this.isPrimary = isPrimary;
@@ -55,40 +77,23 @@ public class Item : EntityBase
   public void OnHandleMouseDown()
   {
     // if (!isPrimary || _isSelected || GameplayController.Instance.gameState != GameState.Playing) return;
-    _mouseDownPos = Input.mousePosition;
-    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    mousePos.z = transform.position.z;
-    offset = transform.position - mousePos;
-    _isSelected = true;
-    OnSelected();
+    // _mouseDownPos = Input.mousePosition;
+    // Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    // mousePos.z = transform.position.z;
+    // offset = transform.position - mousePos;
+    // _isSelected = true;
+    // OnSelected();
+    itemBehaviorSO.OnMouseDown(this);
   }
   private Vector3 vel;
-  public void OnHandleMouseDrag()
+
+  public virtual void SetSelected(bool isSelected)
   {
-    if (!_isSelected) return;
-    if (!_isDragging)
-    {
-      if (Vector3.Distance(Input.mousePosition, _mouseDownPos) > 0.2f)
-      {
-        OnItemBeginDrag();
-        _isDragging = true;
-      }
-      else
-      {
-        return;
-      }
-    }
-    Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    target.z = 0;
-    target += offset;
-    transform.position = Vector3.SmoothDamp(transform.position, target, ref vel, Time.deltaTime * 2);
+    _isSelected = isSelected;
   }
-
-
   public void OnHandleMouseUp()
   {
-    if (!_isSelected) return;
-    if (_isDragging) OnItemFinishDrag();
+    itemBehaviorSO.OnMouseUp(this);
   }
 
   IEnumerator IESpawnSmokeEffect()
@@ -100,7 +105,7 @@ public class Item : EntityBase
       int rand = Random.Range(0, 3);
       if (rand == 0)
       {
-        PoolBoss.SpawnInPool("Food _ Smoke", transform.position, Quaternion.identity);
+        // PoolBoss.SpawnInPool("Food _ Smoke", transform.position, Quaternion.identity);
       }
     }
   }
@@ -169,32 +174,21 @@ public class Item : EntityBase
   {
     return slot;
   }
-
-
-  public void SwitchSlot(SlotBase slot)
-  {
-    if (this.slot != null)
-    {
-      this.slot.ItemOut();
-    }
-
-    this.slot = slot;
-    slot.AddItem(this);
-    // transform.DOLocalMove(Vector3.zero, GameDefine.itemMoveBackSpeed).SetSpeedBased(true).OnComplete(() =>
-    // {
-    //   GameplayController.Instance.SelectItem(null);
-    //   OnDropToSlot(slot);
-    // });
-  }
-
-  private void OnDropToSlot(SlotBase slot)
+  public virtual void OnDropToSlot(SlotBase slot)
   {
     OnIntoSlot();
+
     if (this.slot.GetItem() != null)
-    {
-      //SOUND Items_Put
-      // SoundManager.Instance.PlaySound(SoundType.ItemPut);
-    }
+      PlayDropSound();
+    isProcessing = false;
+  }
+  protected virtual void PlayDropSound()
+  {
+    itemBehaviorSO.PlayDropSound(this);
+  }
+  public void SwitchSlot(SlotBase slot)
+  {
+    itemBehaviorSO.SwitchSlot(this, slot);
   }
 
   public void OnIntoSlot()
@@ -202,7 +196,10 @@ public class Item : EntityBase
     visual.OnIntoSlot();
     slot.OnItemIntoSlot();
   }
-
+  public virtual ItemData GetCurrentItemData()
+  {
+    return Data.Clone();
+  }
   public void MoveToPrimary(SlotBase slot, int index)
   {
     SetPrimary(true);
@@ -221,4 +218,5 @@ public class Item : EntityBase
   {
     return visual;
   }
+
 }

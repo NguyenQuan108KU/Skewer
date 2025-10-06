@@ -8,6 +8,7 @@ public class SlotBase : MonoBehaviour
 {
   [SerializeField] protected GrillBase grill;
   [SerializeField] protected Transform container;
+  public int id { get; private set; }
   protected Item item;
 
   public virtual void ClearItem()
@@ -54,6 +55,11 @@ public class SlotBase : MonoBehaviour
     item.transform.SetParent(container);
   }
 
+  public void SetId(int id)
+  {
+    this.id = id;
+  }
+
   public void OnItemIntoSlot()
   {
     grill.OnSlotUpdated(this);
@@ -65,5 +71,9 @@ public class SlotBase : MonoBehaviour
   public GrillBase GetGrill()
   {
     return grill;
+  }
+
+  public void OnItemSelected()
+  {
   }
 }
