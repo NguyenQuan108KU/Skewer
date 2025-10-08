@@ -11,7 +11,6 @@ public class Item : EntityBase
 
   public ItemType itemType;
   [HideInInspector] public bool isPrimary;
-  [SerializeField] private float offsetY = 0.5f;
 
   [SerializeField] private ItemVisual visual;
   [SerializeField] private BoxCollider2D boxCollider;
@@ -25,13 +24,13 @@ public class Item : EntityBase
   public ItemData Data => data;
   private SlotBase slot;
   private ItemPlaceHolder placeHolder;
-  private Vector3 offset;
   public ItemVisual Visual => visual;
   public SlotBase Slot => slot;
   protected bool locked;
   public bool IsLocked => locked;
   public bool IsSelected { get => _isSelected; set => _isSelected = value; }
   protected bool isProcessing;
+  Coroutine smokeRoutine;
   public void SetItemData(ItemData data, SlotBase slot)
   {
     this.data = data;
@@ -68,7 +67,7 @@ public class Item : EntityBase
     visual.SetPrimary(isPrimary);
     if (isPrimary)
     {
-      StartCoroutine(IESpawnSmokeEffect());
+      smokeRoutine = StartCoroutine(IESpawnSmokeEffect());
     }
   }
   private bool _isSelected;
@@ -105,7 +104,7 @@ public class Item : EntityBase
       int rand = Random.Range(0, 3);
       if (rand == 0)
       {
-        // PoolBoss.SpawnInPool("Food _ Smoke", transform.position, Quaternion.identity);
+        PoolBoss.SpawnInPool("Food _ Smoke", transform.position, Quaternion.identity);
       }
     }
   }
@@ -116,6 +115,15 @@ public class Item : EntityBase
     // SoundManager.Instance.PlaySound(SoundType.ItemPick);
   }
 
+  public virtual void SetSuggest(bool suggest)
+  {
+    if (visual == null) return;
+    if (suggest) visual.Suggest();
+    else
+    {
+      visual.EndSuggest();
+    }
+  }
   private void OnItemBeginDrag()
   {
     slot.OnItemDrag();
@@ -188,11 +196,13 @@ public class Item : EntityBase
   }
   public void SwitchSlot(SlotBase slot)
   {
+    StopCoroutine(smokeRoutine);
     itemBehaviorSO.SwitchSlot(this, slot);
   }
 
   public void OnIntoSlot()
   {
+    transform.localPosition = Vector3.zero;
     visual.OnIntoSlot();
     slot.OnItemIntoSlot();
   }

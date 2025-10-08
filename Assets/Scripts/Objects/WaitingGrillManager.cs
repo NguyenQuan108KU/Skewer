@@ -13,6 +13,10 @@ public class WaitingGrillManager : MonoBehaviour
   public List<WaitingGrill> ListWaitingGrills => listWaitingGrills;
 
 
+  private void Start()
+  {
+    GameLogicHandler.Instance.OnItemMoveSlot += GameLogicHandler_OnItemMoveSlot;
+  }
 
   public void SetData(int numberOfWaitingGrill)
   {
@@ -25,7 +29,13 @@ public class WaitingGrillManager : MonoBehaviour
     GameplayUtils.AlignObjects(transform, distance);
   }
 
-
+  private void GameLogicHandler_OnItemMoveSlot(Item item, SlotBase slot)
+  {
+    if (slot.GetGrill() is WaitingGrill waitingGrill)
+    {
+      GameLogicHandler.Instance.TryCheckLoseGame();
+    }
+  }
   public (WaitingGrill waitingGrill, SlotBase slot) GetDestinationSlot()
   {
     foreach (var waitingGrill in listWaitingGrills)

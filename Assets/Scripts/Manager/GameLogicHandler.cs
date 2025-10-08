@@ -57,6 +57,7 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
         }
       }
     }
+    TryCheckLoseGame();
   }
 
   private void SwitchSlot(SlotBase slot)
@@ -99,6 +100,7 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
     if (CheckWinGame())
     {
       // GameController.Instance.Win();
+      GameplayController.Instance.GameOver(true);
     }
   }
 
@@ -113,6 +115,7 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
     if (stuckType != null)
     {
       // GameController.Instance.Stuck(stuckType.Value);
+      GameplayController.Instance.GameOver();
     }
   }
 

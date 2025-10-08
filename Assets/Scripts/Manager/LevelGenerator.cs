@@ -3,6 +3,7 @@
 using UnityEngine;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using DG.Tweening;
 
 
 public class LevelGenerator : SingletonBase<LevelGenerator>
@@ -36,6 +37,11 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
 
     var orderManager = GameLogicHandler.Instance.OrderManager;
     CreateOrder(_levelData.orderData, orderManager);
+
+    DOVirtual.DelayedCall(1, () =>
+    {
+      GameplayController.Instance.isReady = true;
+    });
   }
 
 

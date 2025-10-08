@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47864c205e460e847a0cd15048c53070, type: 3}
+  m_Script: {fileID: 11500000, guid: b2d1287abe067394da51f442a0663edd, type: 3}
   m_Name: SlotBehaviorSO_SkewerJam
   m_EditorClassIdentifier: 
-  gameFactorySO: {fileID: 11400000, guid: 584fca99a0987ec4db01456647d1bd72, type: 2}

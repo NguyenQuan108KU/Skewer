@@ -142,12 +142,37 @@ public class OrderManager : MonoBehaviour
 
     public void AlignObjects()
     {
-        DOVirtual.DelayedCall(delayAlignOrders, () =>
+        StartCoroutine(IAlignObjects());
+        // DOVirtual.DelayedCall(delayAlignOrders, () =>
+        // {
+        //     var start = -(_listOrders.Count - 1) * distance / 2;
+        //     var sortedOrders = _listOrders.OrderBy(e => e.OrderIndex).ToList();
+        //     var listLocalTargetPositions = new List<Vector3>();
+        //     for (int i = 0; i < sortedOrders.Count; i++)
+        //     {
+        //         listLocalTargetPositions.Add(new Vector3(start + distance * i, 0, 0));
+
+        //         var orderEntity = sortedOrders[i];
+        //         orderEntity.transform.DOLocalMove(listLocalTargetPositions[i], 0.1f).SetEase(Ease.OutSine);
+
+        //     }
+        // });
+    }
+
+    private IEnumerator IAlignObjects()
+    {
+        yield return new WaitForSeconds(delayAlignOrders);
+        var start = -(_listOrders.Count - 1) * distance / 2;
+        var sortedOrders = _listOrders.OrderBy(e => e.OrderIndex).ToList();
+        var listLocalTargetPositions = new List<Vector3>();
+        for (int i = 0; i < sortedOrders.Count; i++)
         {
-            var start = -(_listOrders.Count - 1) * distance / 2;
-            var sortedOrders = _listOrders.OrderBy(e => e.OrderIndex).ToList();
-            var listLocalTargetPositions = new List<Vector3>();
-        });
+            listLocalTargetPositions.Add(new Vector3(start + distance * i, 0, 0));
+
+            var orderEntity = sortedOrders[i];
+            orderEntity.transform.DOLocalMove(listLocalTargetPositions[i], 0.1f).SetEase(Ease.OutSine);
+            yield return new WaitForSeconds(0.075f);
+        }
     }
     public OrderEntity CreateNextLockedOrder()
     {
@@ -218,6 +243,39 @@ public class OrderManager : MonoBehaviour
         }
         return dict;
     }
+
+    public List<DataSuggest> GetOrderItems()
+    {
+        var dict = new Dictionary<int, (int maxItems, int num)>();
+        var listData = new List<DataSuggest>();
+        foreach (var order in _listOrders)
+        {
+            if (order.IsActive == false) continue;
+
+            var targetItem = order.ItemIdTarget;
+            var orderData = listData.Find(t => t.targetItem == targetItem);
+            if (listData.Find(t => t.targetItem == targetItem) == null)
+            {
+                var data = new DataSuggest();
+                data.maxItems = 0;
+                data.num = 0;
+                data.targetItem = targetItem;
+                orderData = data;
+                listData.Add(data);
+            }
+
+            var newMaxItems = orderData.maxItems + order.MaxItems;
+            orderData.maxItems = newMaxItems;
+            foreach (var slot in order.GetSlots())
+            {
+                if (slot.GetItem() != null)
+                {
+                    orderData.num += 1;
+                }
+            }
+        }
+        return listData;
+    }
     public List<int> GetTargetItemIds()
     {
         var list = new List<int>();
@@ -229,4 +287,11 @@ public class OrderManager : MonoBehaviour
         }
         return list.Distinct().ToList();
     }
+}
+
+public class DataSuggest
+{
+    public int maxItems;
+    public int num;
+    public int targetItem;
 }

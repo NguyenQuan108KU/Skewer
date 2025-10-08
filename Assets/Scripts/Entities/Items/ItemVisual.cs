@@ -45,7 +45,7 @@ public class ItemVisual : MonoBehaviour
   }
   public void OnIntoSlot()
   {
-    spriteRenderer.sortingOrder = 1;
+    spriteRenderer.sortingOrder = 10;
   }
   public Sprite GetSprite()
   {
@@ -54,5 +54,25 @@ public class ItemVisual : MonoBehaviour
   public void SetSortingOrder(int sortingOrder)
   {
     // sortingGroup.sortingOrder = sortingOrder;
+  }
+
+  private Sequence suggestionSequence;
+  public void Suggest()
+  {
+    transform.DOKill();
+    suggestionSequence = DOTween.Sequence()
+        .Append(transform.DOShakePosition(0.125f, Vector3.right * 0.065f, randomness: 0).SetEase(Ease.InOutCubic).SetLoops(4, LoopType.Yoyo))
+        .AppendInterval(1f)
+        .SetLoops(-1, LoopType.Restart);
+  }
+  public void EndSuggest()
+  {
+    if (suggestionSequence != null)
+    {
+      suggestionSequence.Kill();
+      suggestionSequence = null;
+    }
+
+    transform.localPosition = Vector3.zero;
   }
 }

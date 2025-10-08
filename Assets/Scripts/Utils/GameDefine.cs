@@ -16,10 +16,7 @@ public enum GameState
 {
   Loading = 0,
   Playing,
-  Paused,
   GameOver,
-  Tool,
-  UsingBooster
 }
 public class ShuffleLayerData
 {

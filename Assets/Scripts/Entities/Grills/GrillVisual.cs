@@ -25,7 +25,7 @@ public class GrillVisual : MonoBehaviour
   public virtual void SetDefaultGrill(GrillData grillData)
   {
     SetVisual();
-    lid.gameObject.SetActive(true);
+    // lid.gameObject.SetActive(true);
     lid.transform.localPosition = new Vector3(0, defaultLidPos, 0);
     lid.transform.localScale = Vector3.one;
     lid.SetAlpha(1);

@@ -48,7 +48,7 @@ public class PrimaryGrill : GrillBase
   }
   public virtual void OpenGrill()
   {
-    DOVirtual.DelayedCall(0.75f, () => grillVisual.OpenGrill(), this);
+    DOVirtual.DelayedCall(0.75f, () => grillVisual.OpenGrill(false), this);
   }
   protected virtual void SetSubGrills()
   {

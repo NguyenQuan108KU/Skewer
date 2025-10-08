@@ -99,7 +99,7 @@ public class OrderEntity : GrillBase
         };
 
         var item = Instantiate(PrefabManager.Instance.itemFaded).GetComponent<Item>();
-        item.SetPrimary(entityType == EntityType.PrimaryGrill);
+        item.SetPrimary(false);
         item.SetItemData(itemData, slots[i]);
         slots[i].ClearItem();
         slots[i].SetItem(item);

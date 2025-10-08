@@ -15,7 +15,7 @@ public class OrderEntityVisual : MonoBehaviour
   [SerializeField] private ParticleSystem completeEffect;
   public AnimationCurve downCurve = AnimationCurve.Linear(0, 0, 1, 1);
   public AnimationCurve upCurve = AnimationCurve.Linear(0, 0, 1, 1);
-
+  public static event EventHandler OnOrderDone;
   public void SetNormalOrder(bool isNormal)
   {
     normalOrder.gameObject.SetActive(isNormal);
@@ -28,7 +28,7 @@ public class OrderEntityVisual : MonoBehaviour
     // activeSprite.gameObject.SetActive(isActive);
     // inactiveSprite.gameObject.SetActive(!isActive);
 
-    // completeEffect?.Stop();
+    completeEffect?.Stop();
   }
 
   public void PlayComplete(Action onComplete)
@@ -44,10 +44,11 @@ public class OrderEntityVisual : MonoBehaviour
     imageLid.transform.localPosition = Vector3.up * 8;
     imageLid.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(downCurve);
     yield return new WaitForSeconds(0.3f);
-    // completeEffect.Play();
+    completeEffect.Play();
     // SOUND
+    SoundManager.Instance.PlaySound(SoundType.ItemMerge);
     onComplete?.Invoke();
-
+    OnOrderDone?.Invoke(this, EventArgs.Empty);
     yield return new WaitForSeconds(0.4f);
     var orderEntity = transform.parent.GetComponent<OrderEntity>();
     var targetPos = orderEntity.transform.localPosition + Vector3.up * 8;

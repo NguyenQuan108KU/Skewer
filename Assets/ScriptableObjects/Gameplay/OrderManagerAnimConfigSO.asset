@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: OrderManagerAnimConfigSO
   m_EditorClassIdentifier: 
   MaxOrder: 4
-  DefaultNumberOfReadyOrder: 2
+  DefaultNumberOfReadyOrder: 4

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb6995b5e5a1d947be8c2eecffea36b, type: 3}
   m_Name: GrillBehaviorSO_SkewerJam
   m_EditorClassIdentifier: 
-  eventSystemSO: {fileID: 0}
-  grillVisualSO: {fileID: 0}
-  slotBaseBehaviorSO: {fileID: 0}
+  eventSystemSO: {fileID: 11400000, guid: 349e6e975e345bd4da77b4510dff17fb, type: 2}
+  grillVisualSO: {fileID: 11400000, guid: 7d9f50ece6bcaa74d8757deed603da16, type: 2}
+  slotBaseBehaviorSO: {fileID: 11400000, guid: ca4366780404dc74d8e15cd0ffe5c143, type: 2}

@@ -131,11 +131,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  itemType: 0
+  itemType: 2
   isPrimary: 0
   offsetY: 1.65
   visual: {fileID: 8123524279957006999}
   boxCollider: {fileID: 3639144467057791223}
+  itemBehaviorSO: {fileID: 0}
 --- !u!61 &3639144467057791223
 BoxCollider2D:
   m_ObjectHideFlags: 0
