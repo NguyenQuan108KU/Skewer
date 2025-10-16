@@ -7,7 +7,9 @@ using UnityEngine;
 public class OrderManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private OrderManagerSO orderManagerSO;
+    // [SerializeField] private OrderManagerSO orderManagerSO;
+    [SerializeField] private int maxOrder = 4;
+    [SerializeField] private int defaultNumberOfReadyOrder = 4;
     [SerializeField] private OrderEntityConfigSO orderEntityConfigSO;
     [SerializeField] private float delayAlignOrders = 0.5f;
 
@@ -22,6 +24,7 @@ public class OrderManager : MonoBehaviour
 
     private List<OrderEntity> _listOrders = new List<OrderEntity>();
     public List<OrderEntity> ListOrders => _listOrders;
+    [SerializeField] private List<DataOrder> dataOrders = new List<DataOrder>();
     void Start()
     {
         Init();
@@ -35,8 +38,8 @@ public class OrderManager : MonoBehaviour
 
     public void Init()
     {
-        var startPos = -(orderManagerSO.MaxOrder - 1) * distance / 2;
-        for (int i = 0; i < orderManagerSO.MaxOrder; i++)
+        var startPos = -(maxOrder - 1) * distance / 2;
+        for (int i = 0; i < maxOrder; i++)
         {
             var orderPos = new Vector3(startPos + distance * i, 0, 0);
             _listOrderLocalPositions.Add(orderPos);
@@ -96,13 +99,23 @@ public class OrderManager : MonoBehaviour
     public void SetData(List<OrderData> listOrderData)
     {
         _nextOrderIndex = 0;
-        for (int i = 0; i < orderManagerSO.DefaultNumberOfReadyOrder; i++)
+        for (int i = 0; i < defaultNumberOfReadyOrder; i++)
         {
-            var (itemId, num) = OrderHelper.GetItemOrder();
-            var orderEntity = CreateNextOrder(itemId, num);
-            orderEntity.SetOrderIndex(i);
+            if (dataOrders.Count > 0)
+            {
+                var (itemId, num) = (dataOrders[0].itemId, dataOrders[0].num);
+                dataOrders.RemoveAt(0);
+                var orderEntity = CreateNextOrder(itemId, num);
+                orderEntity.SetOrderIndex(i);
+            }
+            else
+            {
+                var (itemId, num) = OrderHelper.GetItemOrder();
+                var orderEntity = CreateNextOrder(itemId, num);
+                orderEntity.SetOrderIndex(i);
+            }
         }
-        for (int i = orderManagerSO.DefaultNumberOfReadyOrder; i < orderManagerSO.MaxOrder; i++)
+        for (int i = defaultNumberOfReadyOrder; i < maxOrder; i++)
         {
             var orderEntity = CreateNextLockedOrder();
             orderEntity.SetOrderIndex(i);
@@ -123,7 +136,13 @@ public class OrderManager : MonoBehaviour
     }
     public void CreateNextOrder(int orderIndex)
     {
-        var (itemId, num) = OrderHelper.GetItemOrder();
+        var (itemId, num) = (0, 0);
+        if (dataOrders.Count > 0)
+        {
+            (itemId, num) = (dataOrders[0].itemId, dataOrders[0].num);
+            dataOrders.RemoveAt(0);
+        }
+        else (itemId, num) = OrderHelper.GetItemOrder();
         var nextOrder = CreateNextOrder(itemId, num);
         var orderPos = leftStartPos.position;
         orderPos.z = 0;
@@ -289,9 +308,18 @@ public class OrderManager : MonoBehaviour
     }
 }
 
+[System.Serializable]
 public class DataSuggest
 {
     public int maxItems;
     public int num;
     public int targetItem;
+}
+
+
+[System.Serializable]
+public class DataOrder
+{
+    public int itemId;
+    public int num;
 }

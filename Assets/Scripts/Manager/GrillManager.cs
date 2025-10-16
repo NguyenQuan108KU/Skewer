@@ -10,10 +10,10 @@ public class GrillManager : MonoBehaviour
 
   void Start()
   {
-    foreach (Transform child in transform)
-    {
-      child.gameObject.SetActive(false);
-    }
+    // foreach (Transform child in transform)
+    // {
+    //   child.gameObject.SetActive(false);
+    // }
   }
 
   public void Init()

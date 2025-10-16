@@ -80,7 +80,7 @@ public class ItemBehaviorSO_SkewerJam : ItemBehaviorSO
         {
             item.Slot.ItemOut();
         }
-
+        item.Visual.SetMaskInteraction(UnityEngine.SpriteMaskInteraction.None);
         item.SetSlot(slot);
         item.SetSelected(true);
         slot.AddItem(item);

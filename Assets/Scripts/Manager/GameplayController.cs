@@ -21,6 +21,7 @@ public class GameplayController : SingletonBase<GameplayController>
   [Header("End Game")]
   public GameObject panelWin;
   public GameObject panelLose;
+  public GameObject panelLoseTime;
   public GameObject particleWin;
 
 
@@ -28,7 +29,9 @@ public class GameplayController : SingletonBase<GameplayController>
   [LunaPlaygroundField(fieldSection: "Limit Move")]
   public int totalClickItem = 0;
   [HideInInspector] private int countClickItem = 0;
-
+  [LunaPlaygroundField(fieldSection: "Limit Move")]
+  public int totalOrder = 0;
+  [HideInInspector] private int countOrder = 0;
 
   public bool isReady = false;
   private void Awake()
@@ -36,6 +39,13 @@ public class GameplayController : SingletonBase<GameplayController>
     gameState = GameState.Playing;
   }
 
+  private void Start()
+  {
+    GameLogicHandler.Instance.OnCompleteCollectItem += ((OrderEntity orderEntity) =>
+    {
+      countOrder++;
+    });
+  }
   public void OnStartGame()
   {
     GameEvent.OnUserFirstTouch.Invoke();
@@ -69,7 +79,8 @@ public class GameplayController : SingletonBase<GameplayController>
   private void OnHandleMouseDown(Vector2 mousePos)
   {
 
-    if (totalClickItem > 0 && countClickItem >= totalClickItem)
+    if ((totalClickItem > 0 && countClickItem >= totalClickItem) ||
+        (totalOrder > 0 && countOrder >= totalOrder))
     {
       if (!isCallFinishGame)
       {
@@ -99,7 +110,7 @@ public class GameplayController : SingletonBase<GameplayController>
     itemTmp = null;
   }
 
-  public void GameOver(bool isWin = false)
+  public void GameOver(bool isWin = false, StuckType? stuckType = null)
   {
     if (gameState == GameState.GameOver) return;
     gameState = GameState.GameOver;
@@ -110,23 +121,28 @@ public class GameplayController : SingletonBase<GameplayController>
       PlayableAPI.GameEnded();
     }
     OnGameObjectFinish?.Invoke();
-    StartCoroutine(IGameOver(isWin));
+    StartCoroutine(IGameOver(isWin, stuckType));
   }
-  IEnumerator IGameOver(bool IsWin = false)
+  IEnumerator IGameOver(bool IsWin = false, StuckType? stuckType = null)
   {
     yield return new WaitForSeconds(0.5f);
     if (IsWin)
     {
       SoundManager.Instance.PlaySound(SoundType.Confetti);
       if (particleWin) particleWin.SetActive(true);
-      yield return new WaitForSeconds(1);
+      yield return new WaitForSeconds(particleWin != null ? 1f : 0f);
       panelWin.SetActive(true);
       SoundManager.Instance.PlaySound(SoundType.Win);
       PlayableAPI.LogEventWin();
     }
     else
     {
-      panelLose.SetActive(true);
+      if (stuckType == StuckType.SkewerJam_OutOfSpace)
+      {
+        panelLose.SetActive(true);
+      }
+      else
+        panelLoseTime.SetActive(true);
       SoundManager.Instance.PlaySound(SoundType.Lose);
       PlayableAPI.LogEventFailed();
     }

@@ -31,6 +31,10 @@ public class Item : EntityBase
   public bool IsSelected { get => _isSelected; set => _isSelected = value; }
   protected bool isProcessing;
   Coroutine smokeRoutine;
+  private void Awake()
+  {
+    GameLogicHandler.Instance.ItemManager.AddItem(this);
+  }
   public void SetItemData(ItemData data, SlotBase slot)
   {
     this.data = data;
@@ -46,6 +50,11 @@ public class Item : EntityBase
       visual.gameObject.SetActive(true);
       visual.SetVisual(data.id);
     }
+  }
+
+  public void SetSlotBase(SlotBase slot)
+  {
+    this.slot = slot;
   }
   public virtual void OnComplete()
   {
@@ -99,6 +108,10 @@ public class Item : EntityBase
   {
     while (gameObject.activeInHierarchy)
     {
+      while (transform.position.y > 6)
+      {
+        yield return new WaitForSeconds(4f);
+      }
       float time = Random.Range(3f, 8f);
       yield return new WaitForSeconds(time);
       int rand = Random.Range(0, 3);
@@ -208,7 +221,13 @@ public class Item : EntityBase
   }
   public virtual ItemData GetCurrentItemData()
   {
-    return Data.Clone();
+    ItemData itemData = new ItemData()
+    {
+      id = id,
+      hidden = false,
+      itemType = itemType,
+    };
+    return itemData;
   }
   public void MoveToPrimary(SlotBase slot, int index)
   {

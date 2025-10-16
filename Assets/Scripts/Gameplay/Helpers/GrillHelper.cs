@@ -11,16 +11,19 @@ public static class GrillHelper
         {
             if (ignoreLock == true && primaryGrill.IsLock) continue;
 
-            var shuffleLayerData = primaryGrill.GetShuffleLayerData();
-            if (shuffleLayerData?.layerData?.itemData == null) continue;
-            foreach (var itemData in shuffleLayerData.layerData.itemData)
+            if (primaryGrill.GetSlots() == null) continue;
+            foreach (var slot in primaryGrill.GetSlots())
             {
-                if (itemData == null || itemData.id <= 0) continue;
-                listItemIds.Add(itemData.id);
+                var item = slot.GetItem();
+                if (item != null && item.id > 0)
+                {
+                    if (ignoreLock == true && item.IsLocked) continue;
+                    listItemIds.Add(item.id);
+                }
             }
 
             var subLayerData = primaryGrill.GetSubsShuffleLayerData();
-            if (subLayerData?.Count == 0) continue;
+            if (subLayerData == null || subLayerData.Count == 0) continue;
 
             int currentLayer = 2;
             foreach (var subLayer in subLayerData)

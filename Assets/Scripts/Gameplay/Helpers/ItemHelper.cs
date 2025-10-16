@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 public static class ItemHelper
@@ -20,5 +21,12 @@ public static class ItemHelper
         }
 
         return listItemIds.GroupBy(e => e).ToDictionary(e => e.Key, e => e.Count());
+    }
+
+    public static bool CheckSelectedItemOnOrder(Item item)
+    {
+        var orderManager = GameLogicHandler.Instance.OrderManager;
+        var orderItemsDict = orderManager.GetOrderItemsDict();
+        return orderItemsDict.ContainsKey(item.id);
     }
 }

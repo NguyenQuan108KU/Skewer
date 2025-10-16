@@ -17,7 +17,11 @@ public class ItemVisual : MonoBehaviour
       spriteRenderer.sprite = itemData.sprite;
     }
   }
+  public void SetVisual(Sprite sprite)
+  {
 
+    spriteRenderer.sprite = sprite;
+  }
   public void SetPrimary(bool isPrimary)
   {
     // spriteRenderer.material = isPrimary ? GameResourceReference.Instance.itemMaterials[0] : GameResourceReference.Instance.itemMaterials[2];
@@ -74,5 +78,10 @@ public class ItemVisual : MonoBehaviour
     }
 
     transform.localPosition = Vector3.zero;
+  }
+
+  public void SetMaskInteraction(SpriteMaskInteraction maskInteraction)
+  {
+    spriteRenderer.maskInteraction = maskInteraction;
   }
 }

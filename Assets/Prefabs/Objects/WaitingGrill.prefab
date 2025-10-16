@@ -247,6 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grill: {fileID: 7978404415064955932}
   container: {fileID: 7978232369161080010}
+  item: {fileID: 0}
 --- !u!1 &4356838726104975636
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +296,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeObject: {fileID: 1284844155153559242}
   inactiveObject: {fileID: 8693841035600715674}
+  spriteRenderer: {fileID: 7428402907660604818}
+  warningDuration: 0.5
+  warningColor: {r: 1, g: 0.49411768, b: 0.49411768, a: 1}
 --- !u!1 &4432554898747012893
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +412,7 @@ MonoBehaviour:
   grillType: 0
   slots:
   - {fileID: 3793410978215897901}
+  grillBaseBehaviorSO: {fileID: 0}
   waitingGrillVisual: {fileID: 7480239828524854885}
 --- !u!1 &8693841035600715674
 GameObject:
@@ -425,7 +430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2139779970539275663
 Transform:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class SoundManager : SingletonBase<SoundManager>
   [SerializeField] private AudioClip itemPick;
   [SerializeField] private AudioClip itemMerge;
   [SerializeField] private AudioClip doneOrder;
+  [SerializeField] private AudioClip dropGrill;
 
   public void PlaySound(AudioClip audioClip, float volume = 1)
   {
@@ -56,6 +57,10 @@ public class SoundManager : SingletonBase<SoundManager>
         if (!doneOrder) return;
         PlaySound(doneOrder);
         break;
+      case SoundType.DropGrill:
+        if (!dropGrill) return;
+        PlaySound(dropGrill);
+        break;
       default:
         Debug.LogWarning("Sound type not handled: " + soundType);
         break;
@@ -73,5 +78,6 @@ public enum SoundType
   Confetti,
   ItemPick,
   ItemMerge,
-  DoneOrder
+  DoneOrder,
+  DropGrill
 }

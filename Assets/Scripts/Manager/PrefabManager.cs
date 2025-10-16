@@ -23,6 +23,11 @@ public class PrefabManager : SingletonBase<PrefabManager>
         if (validateSlotCount == 1) return primaryGrillNormal1;
         else if (validateSlotCount == 3) return primaryGrillNormal3;
         break;
+
+      case GrillType.Ice:
+        if (validateSlotCount == 1) return primaryGrillNormal1;
+        else if (validateSlotCount == 3) return primaryGrillNormal3;
+        break;
     }
 
     return new GameObject();

@@ -109,7 +109,7 @@ public static class OrderHelper
     }
     var grillManager = GameLogicHandler.Instance.GrillManager;
     var orderManager = GameLogicHandler.Instance.OrderManager;
-
+    // debug json dictNeededSlots
     var logicOrderConfig = GetLogicOrderConfig(logicOrderConfigs);
     var gameplayInfo = GetGameplayInfoForOrder();
     var (itemId, num, step) = GetItemOrderBasic(logicOrderConfig.minNumberSteps, gameplayInfo);

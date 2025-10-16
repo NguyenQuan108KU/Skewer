@@ -9,7 +9,7 @@ public class SlotBase : MonoBehaviour
   [SerializeField] protected GrillBase grill;
   [SerializeField] protected Transform container;
   public int id { get; private set; }
-  protected Item item;
+  [SerializeField] protected Item item;
 
   public virtual void ClearItem()
   {
@@ -18,6 +18,11 @@ public class SlotBase : MonoBehaviour
       Destroy(this.item.gameObject);
       this.item = null;
     }
+  }
+
+  public void SetItemManually(Item item)
+  {
+    this.item = item;
   }
   public virtual void SetItem(Item item)
   {

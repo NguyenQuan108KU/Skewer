@@ -70,23 +70,58 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
 
   public bool SelectItem(Item item)
   {
+    if (CheckClickAndWarning(item) == true)
+    {
+      return false;
+    }
+
+    // item bay
     ItemSelected = item;
+    bool isSwitchSuccess = false;
+
     var (order, slot) = orderManager.GetDestinationSlot(item);
     if (slot != null)
     {
       SwitchSlot(slot);
-      return true;
+      isSwitchSuccess = true;
     }
-    var (waitingGrill, waitingGrillSlot) = waitingGrillManager.GetDestinationSlot();
-    if (waitingGrillSlot != null)
+    else
     {
+      var (waitingGrill, waitingGrillSlot) = waitingGrillManager.GetDestinationSlot();
+      if (waitingGrillSlot != null)
+      {
+        SwitchSlot(waitingGrillSlot);
+        isSwitchSuccess = true;
+      }
+    }
 
-      SwitchSlot(waitingGrillSlot);
-      return true;
+    // sau khi item switch: Xem có cần warning không?
+    if (isSwitchSuccess == true)
+    {
+      if (WaitingGrillHelper.CheckWarning() == true)
+      {
+        WaitingGrillHelper.Warning();
+      }
+    }
+
+    return isSwitchSuccess;
+  }
+  private bool CheckClickAndWarning(Item item)
+  {
+    if (ItemHelper.CheckSelectedItemOnOrder(item) == false)
+    {
+      if (WaitingGrillHelper.IsWarning == true && WaitingGrillHelper.CheckWarningCount() == true)
+      {
+        if (WaitingGrillHelper.Warning() == true)
+        {
+          return true;
+        }
+      }
+
+      WaitingGrillHelper.ResetWarning();
     }
     return false;
   }
-
   public void ItemMoveSlot(Item item, SlotBase slot)
   {
     OnItemMoveSlot?.Invoke(item, slot);
@@ -115,7 +150,7 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
     if (stuckType != null)
     {
       // GameController.Instance.Stuck(stuckType.Value);
-      GameplayController.Instance.GameOver();
+      GameplayController.Instance.GameOver(false, stuckType);
     }
   }
 
@@ -124,17 +159,18 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
     var listWaitingGrill = waitingGrillManager.ListWaitingGrills;
     foreach (var waitingGrill in listWaitingGrill)
     {
-      if (waitingGrill.GetSlots().Where(e => e.isEmpty() && waitingGrill.IsActive).Count() > 0) return null;
+      if (waitingGrill.GetSlots().Where(e => e.isEmpty() && waitingGrill.IsActive).Count() > 0)
+        return null;
     }
 
-    // nếu order còn có thể di chuyển item vào thì chưa thua
-    var listTargetItemIds = orderManager.GetTargetItemIds();
-    var listItemIdInLayer1 = GrillHelper.GetItemIdListWithLayer(1, true);
-    foreach (var id in listTargetItemIds)
-    {
-      if (listItemIdInLayer1.Contains(id) == true) return null;
-    }
-
+    // // nếu order còn có thể di chuyển item vào thì chưa thua
+    // var listTargetItemIds = orderManager.GetTargetItemIds();
+    // var listItemIdInLayer1 = GrillHelper.GetItemIdListWithLayer(1, true);
+    // var dictItems = listItemIdInLayer1.GroupBy(e => e).ToDictionary(e => e.Key, e => e.Count());
+    // foreach (var id in listTargetItemIds)
+    // {
+    //   if (dictItems.ContainsKey(id) == true && dictItems[id] > 0) return null;
+    // }
     // else continue
     return StuckType.SkewerJam_OutOfSpace;
   }

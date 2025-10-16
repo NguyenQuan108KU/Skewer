@@ -1,5 +1,6 @@
 
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class ItemManager : MonoBehaviour
 
   public int TotalItems => totalItems;
   public int CurrentItems => currentItems;
+  public List<Item> itemsInGame = new List<Item>();
+  public bool isManualSetup = false;
   public void OnStartCollectItem(OrderEntity orderEntity)
   {
     currentItems -= orderEntity.MaxItems;
@@ -16,33 +19,46 @@ public class ItemManager : MonoBehaviour
 
   public void Init()
   {
-    var levelData = LevelGenerator.Instance.LevelData;
-    totalItems = 0;
-    currentItems = 0;
-    foreach (var grillData in levelData.grillData)
+    if (!isManualSetup)
     {
-      if (grillData.layer != null)
+      var levelData = LevelGenerator.Instance.LevelData;
+      totalItems = 0;
+      currentItems = 0;
+      foreach (var grillData in levelData.grillData)
       {
-        foreach (var layerData in grillData.layer)
+        if (grillData.layer != null)
         {
-          if (layerData.itemData != null)
+          foreach (var layerData in grillData.layer)
           {
-            foreach (var itemData in layerData.itemData)
+            if (layerData.itemData != null)
             {
-              if (itemData != null && itemData.id > 0)
+              foreach (var itemData in layerData.itemData)
               {
-                totalItems++;
+                if (itemData != null && itemData.id > 0)
+                {
+                  totalItems++;
+                }
               }
             }
           }
         }
       }
     }
-
+    else
+    {
+      totalItems = itemsInGame.Count;
+    }
     GameLogicHandler.Instance.OnStartCollectItem += OnStartCollectItem;
+
     currentItems = totalItems;
   }
-
+  public void AddItem(Item item)
+  {
+    if (!itemsInGame.Contains(item))
+    {
+      itemsInGame.Add(item);
+    }
+  }
   public void Clear()
   {
     GameLogicHandler.Instance.OnStartCollectItem -= OnStartCollectItem;

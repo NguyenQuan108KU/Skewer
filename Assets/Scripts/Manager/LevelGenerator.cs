@@ -13,6 +13,7 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
 
   public LevelData_SkewerJam LevelData => _levelData;
   public GrillManager grillManager;
+  public List<ItemDataSO> itemDataList;
   [SerializeField] private ItemSO itemSO;
   private void Start()
   {
@@ -103,6 +104,10 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
   }
   public ItemDataSO GetItemData(int id)
   {
+    if (itemSO == null)
+    {
+      return itemDataList.Find(e => e.id == id);
+    }
     return itemSO.GetItemData(id);
   }
 }

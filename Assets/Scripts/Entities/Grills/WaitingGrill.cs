@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaitingGrill : GrillBase
 {
   [SerializeField] private WaitingGrillVisual waitingGrillVisual;
-
+  public WaitingGrillVisual Visual => waitingGrillVisual;
   private bool isActive = false;
   public bool IsActive => isActive;
 

@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class PrimaryGrill : GrillBase
 {
+  public static event EventHandler OnAnyMainLayerEmpty;
   public override EntityType entityType => EntityType.PrimaryGrill;
   [SerializeField] protected Transform container;
   [SerializeField] protected Transform subContainer;
@@ -24,8 +25,24 @@ public class PrimaryGrill : GrillBase
   public Transform SubContainer => subContainer;
 
   public int SlotCount => slots.Length;
+  public bool isManualSetup = false;
 
 
+  private void Awake()
+  {
+    if (isManualSetup)
+    {
+      GameLogicHandler.Instance.GrillManager.AddGrill(this);
+      foreach (var slot in slots)
+      {
+        if (!slot.isEmpty())
+        {
+          slot.GetItem().SetPrimary(entityType == EntityType.PrimaryGrill);
+          slot.GetItem().SetSlotBase(slot);
+        }
+      }
+    }
+  }
   public void SetData(GrillData grillData)
   {
     grillVisual.SetDefaultGrill(grillData);
@@ -116,7 +133,7 @@ public class PrimaryGrill : GrillBase
     foreach (var slot in slots)
     {
       var item = slot.GetItem();
-      if (item != null && item.Data != null)
+      if (item != null)
       {
         if (item.itemType == ItemType.Ice || item.itemType == ItemType.Bomb || item.itemType == ItemType.Key || item.itemType == ItemType.Key2) return false;
       }
@@ -130,7 +147,7 @@ public class PrimaryGrill : GrillBase
     for (int i = 0; i < slots.Length; i++)
     {
       var item = slots[i].GetItem();
-      if (item != null && item.Data != null)
+      if (item != null)
       {
         _layerData.itemData[i] = item.GetCurrentItemData();
       }
@@ -169,7 +186,11 @@ public class PrimaryGrill : GrillBase
   {
     isProcess = false;
     grillVisual.UpdateSubGrill();
-    if (subGrills == null || subGrills.Count == 0) return;
+    if (subGrills == null || subGrills.Count == 0)
+    {
+      OnAnyMainLayerEmpty?.Invoke(this, EventArgs.Empty);
+      return;
+    }
     subGrills[0].MoveUpPrimary();
     subGrills.RemoveAt(0);
     if (subGrills.Count > 0)
