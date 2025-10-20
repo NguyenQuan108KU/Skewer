@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FullscreenDrop.unity
     guid: 36484375fcf2b764280d82c41de6518c
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/Level9.unity
+    guid: b334cd1af25476a4da37ad8b95c05456
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/Level12.unity
+    guid: 96381bf46b33f864f955f51e88208797
   m_configObjects: {}

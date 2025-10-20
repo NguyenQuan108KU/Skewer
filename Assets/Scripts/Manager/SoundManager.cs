@@ -1,5 +1,6 @@
 
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : SingletonBase<SoundManager>
@@ -18,6 +19,7 @@ public class SoundManager : SingletonBase<SoundManager>
   [SerializeField] private AudioClip doneOrder;
   [SerializeField] private AudioClip dropGrill;
 
+  [SerializeField] private List<AudioClip> obstacleIceSfxList;
   public void PlaySound(AudioClip audioClip, float volume = 1)
   {
     if (audioClip == null) return;
@@ -66,6 +68,13 @@ public class SoundManager : SingletonBase<SoundManager>
         break;
 
     }
+  }
+  public void PlayObstacleIceSound(int state)
+  {
+    if (state < 0 || state >= obstacleIceSfxList.Count) return;
+    var clip = obstacleIceSfxList[state];
+    if (clip == null) return;
+    PlaySound(clip);
   }
 }
 

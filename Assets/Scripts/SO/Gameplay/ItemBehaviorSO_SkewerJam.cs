@@ -39,7 +39,7 @@ public class ItemBehaviorSO_SkewerJam : ItemBehaviorSO
         item.transform.DOScale(scaleDown, scaleDuration);
     }
 
-    public override void OnMouseExit(Item item)
+    public override void OnMouseExitItem(Item item)
     {
         if (selectedItem == item)
         {

@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8910670538904401362}
-  - component: {fileID: 8877404175476191423}
+  - component: {fileID: 6841227389653106972}
   m_Layer: 0
   m_Name: PrimaryGrillIce_3
   m_TagString: Untagged
@@ -100,7 +100,7 @@ Transform:
   - {fileID: 6730875540071726136}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8877404175476191423
+--- !u!114 &6841227389653106972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,11 +109,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1545801025511846915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2ea83644f850f24e99b9e1ae4a8fba9, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c3efafd103ca884abb7c01faa179b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  grillType: 0
+  grillType: 7
   slots:
   - {fileID: 7211399795958396874}
   - {fileID: 5091869253666230138}
@@ -121,10 +121,13 @@ MonoBehaviour:
   grillBaseBehaviorSO: {fileID: 11400000, guid: 2749e1dc3d750254dbca4fb3243fc98c, type: 2}
   container: {fileID: 6587540464893490454}
   subContainer: {fileID: 6730875540071726136}
-  grillVisual: {fileID: 0}
+  grillVisual: {fileID: 163879808750107544}
   available: 0
   isInGameplaySpace: 1
   isManualSetup: 0
+  iceState: 3
+  visualIce: {fileID: 163879808750107544}
+  priority: 0
 --- !u!1 &1631293541862068384
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059a31a4cdbc9264eb0fd4631ce91f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grill: {fileID: 8877404175476191423}
+  grill: {fileID: 6841227389653106972}
   container: {fileID: 8110576646437883150}
   item: {fileID: 0}
 --- !u!61 &3065158847292488229
@@ -818,7 +821,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: ca6ffdd566bd7194d8d9d033098b3ab4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a031d60f05239374783d2d7a7029a86a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -875,7 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059a31a4cdbc9264eb0fd4631ce91f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grill: {fileID: 8877404175476191423}
+  grill: {fileID: 6841227389653106972}
   container: {fileID: 914926034637136556}
   item: {fileID: 0}
 --- !u!61 &8350352097073263318
@@ -969,7 +972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059a31a4cdbc9264eb0fd4631ce91f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grill: {fileID: 8877404175476191423}
+  grill: {fileID: 6841227389653106972}
   container: {fileID: 6815071541127250498}
   item: {fileID: 0}
 --- !u!61 &1270205154426173442
@@ -1077,6 +1080,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle _ Ice Break _ Phase 2 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3737976179026874063, guid: 9737d22120566d14d8ba759d42f510d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1152,6 +1159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle _ Ice Break _ Phase 2 3 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3737976179026874063, guid: 9737d22120566d14d8ba759d42f510d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1178,6 +1189,10 @@ PrefabInstance:
     - target: {fileID: 2649608041678720667, guid: 830ff4017e0e99c428549256c743f104, type: 3}
       propertyPath: m_Name
       value: Obstacle _ Ice Break _ Full
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649608041678720667, guid: 830ff4017e0e99c428549256c743f104, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6549690221734537951, guid: 830ff4017e0e99c428549256c743f104, type: 3}
       propertyPath: m_LocalScale.y

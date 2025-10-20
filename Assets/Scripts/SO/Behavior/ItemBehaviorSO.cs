@@ -11,7 +11,7 @@ public abstract class ItemBehaviorSO : ScriptableObject
 
     public abstract void OnMouseUp(Item item);
 
-    public abstract void OnMouseExit(Item item);
+    public abstract void OnMouseExitItem(Item item);
 
     public abstract void SwitchSlot(Item item, SlotBase slot);
 

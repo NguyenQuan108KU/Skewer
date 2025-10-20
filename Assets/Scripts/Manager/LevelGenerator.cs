@@ -61,6 +61,7 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
       grill.SetData(grillData);
       GameLogicHandler.Instance.GrillManager.AddGrill(grill);
     }
+    CheckObstacles();
   }
 
   private void CreateWaitingGrill(int numberOfWaitingGrill, WaitingGrillManager waitingSlotManager)
@@ -70,6 +71,11 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
   private void CreateOrder(List<OrderData> listOrderData, OrderManager orderManager)
   {
     orderManager.SetData(listOrderData);
+  }
+
+  private void CheckObstacles()
+  {
+    PrimaryGrillIce.CheckAndStartProgress();
   }
   private (GrillType? validateGrillType, int validateSlotCount) ValidateGrillType(GrillType grillType, int slotCount)
   {

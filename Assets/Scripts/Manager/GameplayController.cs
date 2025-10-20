@@ -72,7 +72,7 @@ public class GameplayController : SingletonBase<GameplayController>
     }
     if (Input.GetMouseButtonUp(0))
     {
-      OnHandleMouseUp();
+      OnHandleMouseUp(Input.mousePosition);
     }
   }
 
@@ -103,11 +103,25 @@ public class GameplayController : SingletonBase<GameplayController>
     }
   }
 
-  private void OnHandleMouseUp()
+  private void OnHandleMouseUp(Vector2 mousePos)
   {
     if (itemTmp == null) return;
-    itemTmp.OnHandleMouseUp();
+
+    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(mousePos);
+    var col = Physics2D.OverlapPoint(touchPosition, layerMaskItem);
+    if (col)
+    {
+      col.transform.TryGetComponent<Item>(out var itemTmp2);
+      if (itemTmp2 != null && itemTmp2 == itemTmp)
+      {
+        itemTmp.OnHandleMouseUp();
+        itemTmp = null;
+        return;
+      }
+    }
+    itemTmp.UnSelect();
     itemTmp = null;
+
   }
 
   public void GameOver(bool isWin = false, StuckType? stuckType = null)

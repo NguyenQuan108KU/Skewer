@@ -124,6 +124,7 @@ MonoBehaviour:
   grillVisual: {fileID: 50614590727000453}
   available: 0
   isInGameplaySpace: 1
+  isManualSetup: 0
 --- !u!1 &1631293541862068384
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grill: {fileID: 8877404175476191423}
   container: {fileID: 8110576646437883150}
+  item: {fileID: 0}
 --- !u!61 &3065158847292488229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -518,7 +520,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: ca6ffdd566bd7194d8d9d033098b3ab4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a031d60f05239374783d2d7a7029a86a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -577,6 +579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grill: {fileID: 8877404175476191423}
   container: {fileID: 914926034637136556}
+  item: {fileID: 0}
 --- !u!61 &8350352097073263318
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -670,6 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grill: {fileID: 8877404175476191423}
   container: {fileID: 6815071541127250498}
+  item: {fileID: 0}
 --- !u!61 &1270205154426173442
 BoxCollider2D:
   m_ObjectHideFlags: 0

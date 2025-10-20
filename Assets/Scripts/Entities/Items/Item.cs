@@ -104,6 +104,10 @@ public class Item : EntityBase
     itemBehaviorSO.OnMouseUp(this);
   }
 
+  public void UnSelect()
+  {
+    itemBehaviorSO.OnMouseExitItem(this);
+  }
   IEnumerator IESpawnSmokeEffect()
   {
     while (gameObject.activeInHierarchy)

@@ -7,6 +7,7 @@ public class PrefabManager : SingletonBase<PrefabManager>
   [Header("Grill")]
   public GameObject primaryGrillNormal3;
   public GameObject primaryGrillNormal1;
+  public GameObject primaryGrillIce;
 
   [Header("Sub grill")]
   public GameObject subGrillNormal;
@@ -25,8 +26,7 @@ public class PrefabManager : SingletonBase<PrefabManager>
         break;
 
       case GrillType.Ice:
-        if (validateSlotCount == 1) return primaryGrillNormal1;
-        else if (validateSlotCount == 3) return primaryGrillNormal3;
+        return primaryGrillIce;
         break;
     }
 

@@ -43,7 +43,7 @@ public class PrimaryGrill : GrillBase
       }
     }
   }
-  public void SetData(GrillData grillData)
+  public virtual void SetData(GrillData grillData)
   {
     grillVisual.SetDefaultGrill(grillData);
     this.grillData = grillData;
@@ -267,5 +267,36 @@ public class PrimaryGrill : GrillBase
     }
 
     return pos;
+  }
+  protected void SetSlotCollider(bool state)
+  {
+    foreach (var slot in slots)
+    {
+      BoxCollider2D collider2D = slot.GetComponent<BoxCollider2D>();
+      collider2D.enabled = state;
+    }
+  }
+  public virtual void SetLockItems(bool lockState)
+  {
+    this.lockState = lockState ? (byte)1 : (byte)0;
+    foreach (var slot in slots)
+    {
+      slot.GetItem()?.SetLockState(lockState);
+    }
+  }
+
+  public virtual void UnlockState()
+  {
+    if (!IsLock) return;
+    lockState--;
+    if (lockState <= 0)
+    {
+      Unlock();
+    }
+  }
+  public virtual void Unlock()
+  {
+    SetLockItems(false);
+    OpenGrill();
   }
 }

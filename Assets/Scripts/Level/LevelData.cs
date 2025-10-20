@@ -116,6 +116,7 @@ public class OrderData
 public class GrillData
 {
   public byte id;
+  public int priority;
   public Vector3Data position;
   public List<LayerData> layer;
   public GrillType grillType;
@@ -198,4 +199,12 @@ public class Vector3Data
   {
     return new Vector3(x, y, z);
   }
+}
+[Serializable]
+public enum MoveType
+{
+  None = 0,
+  Horizontal = 1,
+  Vertical = 2,
+  Drop = 3
 }
