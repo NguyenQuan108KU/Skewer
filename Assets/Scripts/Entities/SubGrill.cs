@@ -68,7 +68,11 @@ public class SubGrill : GrillBase
     };
   }
 
-
+  public override void SetMaskVisible(bool state)
+  {
+    base.SetMaskVisible(state);
+    visual.maskInteraction = state ? SpriteMaskInteraction.VisibleOutsideMask : SpriteMaskInteraction.None;
+  }
   public LayerData GetCurrentData()
   {
     if (!showed)

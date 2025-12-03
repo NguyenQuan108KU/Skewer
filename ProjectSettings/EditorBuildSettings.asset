@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SkewerJam/Level12.unity
     guid: 96381bf46b33f864f955f51e88208797
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/Level24.unity
+    guid: d42a9132b4d92844baa75618a882d70c
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/Shutter.unity
+    guid: 22d6f67f30d57274fbbb46cf1cc87c0e
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/Xmas/XmasTone.unity
+    guid: bccc05044a4307840ac439babc3dfc41
   m_configObjects: {}

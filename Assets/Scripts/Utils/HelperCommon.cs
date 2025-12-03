@@ -22,6 +22,8 @@ public static class HelperCommon
         return GrillType.Ice;
       case 16:
         return GrillType.Lid;
+      case 19:
+        return GrillType.Shutter;
       default:
         return GrillType.Normal;
     }

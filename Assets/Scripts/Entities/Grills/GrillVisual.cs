@@ -8,6 +8,7 @@ public class GrillVisual : MonoBehaviour
 {
   [SerializeField] protected SpriteRenderer stove;
   [SerializeField] protected SpriteRenderer lid;
+  [SerializeField] protected SpriteRenderer lidSoldOut;
   [SerializeField] protected SortingGroup sortingGroup;
   [SerializeField] protected string lidType;
   [SerializeField] protected string stoveType;
@@ -49,21 +50,83 @@ public class GrillVisual : MonoBehaviour
     // }
   }
 
-  public virtual void OpenGrill(bool doEffect = true)
+  public virtual void OpenGrill(bool doEffect = true, bool isSoldOut = false)
   {
-    lid.transform.DOKill();
+    var selectedLid = isSoldOut ? lidSoldOut : lid;
+    var otherLid = isSoldOut ? lid : lidSoldOut;
 
+    otherLid.transform.DOKill();
+    otherLid.gameObject.SetActive(false);
+
+    selectedLid.transform.DOKill();
+    selectedLid.gameObject.SetActive(true);
     if (doEffect)
     {
-      lid.transform.localScale = Vector3.one;
-      lid.gameObject.SetActive(true);
-      lid.transform.DOLocalMoveY(2.5f, GameDefine.grillLidAnim).From(defaultLidPos).SetEase(Ease.OutQuad);
-      lid.transform.DOScale(0.95f, GameDefine.grillLidAnim);
-      lid.DOFade(0, GameDefine.grillLidAnim).SetEase(Ease.InQuad).OnComplete(() => { lid.gameObject.SetActive(false); });
+      // lid.transform.localScale = Vector3.one;
+      selectedLid.gameObject.SetActive(true);
+      selectedLid.transform.DOLocalMoveY(2.5f, GameDefine.grillLidAnim).From(defaultLidPos).SetEase(Ease.OutQuad);
+      // lid.transform.DOScale(0.95f, GameDefine.grillLidAnim);
+      selectedLid.DOFade(0, GameDefine.grillLidAnim).SetEase(Ease.InQuad).OnComplete(() => { selectedLid.gameObject.SetActive(false); });
     }
     else
     {
-      lid.gameObject.SetActive(false);
+      selectedLid.gameObject.SetActive(false);
+    }
+  }
+
+  public virtual void CloseGrill(bool doEffect = true, bool isSoldOut = false)
+  {
+    var selectedLid = isSoldOut ? lidSoldOut : lid;
+    var otherLid = isSoldOut ? lid : lidSoldOut;
+    otherLid.transform.DOKill();
+    otherLid.gameObject.SetActive(false);
+
+    selectedLid.transform.DOKill();
+    selectedLid.gameObject.SetActive(true);
+
+    selectedLid.gameObject.SetActive(true);
+    if (doEffect)
+    {
+      // selectedLid.transform.localScale = Vector3.one * 0.95f;
+      selectedLid.transform.localPosition = new Vector3(0, 2.5f, 0);
+      selectedLid.DOFade(0, 0);
+      // selectedLid.transform.DOScale(1, GameDefine.grillLidAnim);
+      selectedLid.transform.DOLocalMoveY(defaultLidPos, GameDefine.grillLidAnim).SetEase(Ease.InQuad).OnComplete(() =>
+      {
+        // if (isSoldOut)
+        // {
+        //     var rand = UnityEngine.Random.Range((int)AudioId.Pot_lid_Close_01_Grill3, (int)AudioId.Pot_lid_Close_03_Grill3 + 1);
+        //     MySonatFramework.audioService.PlaySound((AudioId)rand);
+        // }
+      });
+      selectedLid.DOFade(1, GameDefine.grillLidAnim).SetEase(Ease.OutQuad);
+    }
+    else
+    {
+      // selectedLid.transform.localScale = Vector3.one;
+      selectedLid.transform.SetLocalPositionY(defaultLidPos);
+      selectedLid.DOFade(1, 0);
+    }
+  }
+  public Bounds GetGrillBounds()
+  {
+    return stove != null ? stove.bounds : new Bounds(transform.position, Vector3.one);
+  }
+  private bool isConveyorState = false;
+  public virtual void SetMaskVisible(bool state)
+  {
+    switch (isConveyorState)
+    {
+      case false when state:
+        isConveyorState = true;
+        stove.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+        lid.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+        break;
+      case true:
+        isConveyorState = false;
+        stove.maskInteraction = SpriteMaskInteraction.None;
+        lid.maskInteraction = SpriteMaskInteraction.None;
+        break;
     }
   }
 }

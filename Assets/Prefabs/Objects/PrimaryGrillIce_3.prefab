@@ -407,6 +407,7 @@ MonoBehaviour:
   grill: {fileID: 6841227389653106972}
   container: {fileID: 8110576646437883150}
   item: {fileID: 0}
+  isOnConveyor: 0
 --- !u!61 &3065158847292488229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -706,6 +707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stove: {fileID: 5895998666502093465}
   lid: {fileID: 3729440506567530423}
+  lidSoldOut: {fileID: 0}
   sortingGroup: {fileID: 0}
   lidType: 
   stoveType: 
@@ -881,6 +883,7 @@ MonoBehaviour:
   grill: {fileID: 6841227389653106972}
   container: {fileID: 914926034637136556}
   item: {fileID: 0}
+  isOnConveyor: 0
 --- !u!61 &8350352097073263318
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -975,6 +978,7 @@ MonoBehaviour:
   grill: {fileID: 6841227389653106972}
   container: {fileID: 6815071541127250498}
   item: {fileID: 0}
+  isOnConveyor: 0
 --- !u!61 &1270205154426173442
 BoxCollider2D:
   m_ObjectHideFlags: 0

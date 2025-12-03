@@ -8,7 +8,7 @@ public class ItemVisual : MonoBehaviour
   [SerializeField] protected Item item;
   [SerializeField] private SpriteRenderer spriteRenderer;
 
-
+  protected bool isConveyorState = false;
   public void SetVisual(int id)
   {
     ItemDataSO itemData = LevelGenerator.Instance.GetItemData(id);
@@ -26,7 +26,20 @@ public class ItemVisual : MonoBehaviour
   {
     // spriteRenderer.material = isPrimary ? GameResourceReference.Instance.itemMaterials[0] : GameResourceReference.Instance.itemMaterials[2];
   }
-
+  public virtual void SetVisibleMaskState(bool state)
+  {
+    if (state == isConveyorState) return;
+    isConveyorState = state;
+    switch (state)
+    {
+      case true:
+        spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+        break;
+      case false:
+        spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
+        break;
+    }
+  }
 
   public void OnSelected()
   {

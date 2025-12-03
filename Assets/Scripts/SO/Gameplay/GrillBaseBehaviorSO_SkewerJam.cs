@@ -6,7 +6,6 @@ public class GrillBaseBehaviorSO_SkewerJam : GrillBaseBehaviorSO
 {
     public override void OnSlotUpdated(SlotBase slot)
     {
-
     }
 
     public override void SetSubOffset(GrillBase grillBase, out Vector3 subOffset)

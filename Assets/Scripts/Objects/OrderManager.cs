@@ -1,14 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
-public class OrderManager : MonoBehaviour
+public class OrderManager : SingletonBase<OrderManager>
 {
     // Start is called before the first frame update
     // [SerializeField] private OrderManagerSO orderManagerSO;
+    [LunaPlaygroundField(fieldSection: "Order Settings")]
     [SerializeField] private int maxOrder = 4;
+    [LunaPlaygroundField(fieldSection: "Order Settings")]
+
     [SerializeField] private int defaultNumberOfReadyOrder = 4;
     [SerializeField] private OrderEntityConfigSO orderEntityConfigSO;
     [SerializeField] private float delayAlignOrders = 0.5f;
@@ -25,6 +29,8 @@ public class OrderManager : MonoBehaviour
     private List<OrderEntity> _listOrders = new List<OrderEntity>();
     public List<OrderEntity> ListOrders => _listOrders;
     [SerializeField] private List<DataOrder> dataOrders = new List<DataOrder>();
+    public List<DataCharacter> dataCharacters = new List<DataCharacter>();
+
     void Start()
     {
         Init();
@@ -152,6 +158,8 @@ public class OrderManager : MonoBehaviour
 
         DOVirtual.DelayedCall(orderEntityConfigSO.delayAppearNextOrder, () =>
         {
+            SoundManager.Instance.PlaySound(SoundType.BoxAppear);
+
             nextOrder.transform.DOLocalMove(_listOrderLocalPositions[nextOrder.OrderIndex], 0.3f).SetEase(Ease.OutSine).OnComplete(() =>
            {
                GameLogicHandler.Instance.AppearNextOrder(nextOrder);
@@ -228,6 +236,7 @@ public class OrderManager : MonoBehaviour
         for (int i = 0; i < _listOrders.Count; i++)
         {
             var order = _listOrders[i];
+            SoundManager.Instance.PlaySound(SoundType.BoxAppear);
             order.transform.DOLocalMove(_listOrderLocalPositions[order.OrderIndex], 0.3f).SetEase(Ease.OutSine).OnComplete(() =>
             {
                 GameLogicHandler.Instance.AppearNextOrder(order, true);
@@ -306,6 +315,16 @@ public class OrderManager : MonoBehaviour
         }
         return list.Distinct().ToList();
     }
+    private int currentOrderVisual = 0;
+    public DataCharacter GetCurrentOrderVisual()
+    {
+        if (currentOrderVisual == 0)
+        {
+            currentOrderVisual = dataCharacters.Count;
+        }
+        currentOrderVisual--;
+        return dataCharacters[currentOrderVisual];
+    }
 }
 
 [System.Serializable]
@@ -322,4 +341,19 @@ public class DataOrder
 {
     public int itemId;
     public int num;
+}
+
+
+[Serializable]
+public class DataCharacter
+{
+    public int id;
+    public Sprite sprite;
+    public Character character;
+}
+
+public enum Character
+{
+    Man,
+    Woman,
 }

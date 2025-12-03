@@ -26,4 +26,9 @@ public static class Utils
 
     return result;
   }
+
+  public static void SetLocalPositionY(this Transform transform, float y)
+  {
+    transform.localPosition = new Vector3(transform.localPosition.x, y, transform.localPosition.z);
+  }
 }

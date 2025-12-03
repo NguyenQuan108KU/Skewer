@@ -9,7 +9,7 @@ public abstract class GrillBase : EntityBase
   protected bool showed = false;
   protected int lockState;
   public bool IsLock => lockState > 0;
-
+  protected bool isOnConveyor;
   [Header("Behavior SO")]
   [SerializeField] protected GrillBaseBehaviorSO grillBaseBehaviorSO;
 
@@ -26,7 +26,12 @@ public abstract class GrillBase : EntityBase
         {
           break;
         }
+
         Item item = Instantiate(PrefabManager.Instance.itemPrefab, slots[i].transform).GetComponent<Item>();
+        if (isOnConveyor)
+        {
+          item.SetIsOnConveyor(true);
+        }
         item.SetPrimary(entityType == EntityType.PrimaryGrill);
         item.SetItemData(layerData.itemData[i], slots[i]);
         slots[i].SetItem(item);
@@ -40,6 +45,10 @@ public abstract class GrillBase : EntityBase
   // {
 
   // }
+  public bool IsOnConveyorState()
+  {
+    return isOnConveyor;
+  }
   public virtual void OnSlotUpdated(SlotBase slot)
   {
   }
@@ -71,5 +80,14 @@ public abstract class GrillBase : EntityBase
     }
 
     showed = false;
+  }
+
+  public virtual void SetMaskVisible(bool state)
+  {
+    this.isOnConveyor = true;
+    for (int i = 0; i < slots.Length; i++)
+    {
+      slots[i].SetConveyor(state);
+    }
   }
 }

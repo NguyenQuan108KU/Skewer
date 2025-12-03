@@ -1,14 +1,16 @@
 
 
 using System;
+using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class OrderEntity : GrillBase
 {
   [Header("Order Entity Visual")]
-  [SerializeField] private Transform container;
+  [SerializeField] protected Transform container;
   public override EntityType entityType => EntityType.PrimaryGrill;
-  [SerializeField] private OrderEntityVisual orderEntityVisual;
+  [SerializeField] protected OrderEntityVisual orderEntityVisual;
 
   private int orderIndex;
   private bool active = false;
@@ -128,5 +130,15 @@ public class OrderEntity : GrillBase
       slot.GetItem()?.OnComplete();
     }
     orderEntityVisual.PlayComplete(onComplete);
+  }
+
+  public virtual void MoveOut()
+  {
+    var targetPos = transform.localPosition + Vector3.up * 8;
+    transform.DOLocalMove(targetPos, 0.3f).SetEase(orderEntityVisual.upCurve);
+    DOVirtual.DelayedCall(0.3f, () =>
+    {
+      Destroy(gameObject);
+    });
   }
 }

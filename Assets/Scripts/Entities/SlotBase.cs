@@ -10,7 +10,7 @@ public class SlotBase : MonoBehaviour
   [SerializeField] protected Transform container;
   public int id { get; private set; }
   [SerializeField] protected Item item;
-
+  [HideInInspector] public bool isOnConveyor;
   public virtual void ClearItem()
   {
     if (this.item != null)
@@ -67,7 +67,8 @@ public class SlotBase : MonoBehaviour
 
   public void OnItemIntoSlot()
   {
-    grill.OnSlotUpdated(this);
+    if (grill != null)
+      grill.OnSlotUpdated(this);
   }
   public Item GetItem()
   {
@@ -80,5 +81,14 @@ public class SlotBase : MonoBehaviour
 
   public void OnItemSelected()
   {
+  }
+
+  public void SetConveyor(bool isOn)
+  {
+    this.isOnConveyor = isOn;
+    if (item != null)
+    {
+      item.SetIsOnConveyor(isOn);
+    }
   }
 }

@@ -52,7 +52,7 @@ public class TutorialManager : MonoBehaviour
   public Item GetSuggestItem()
   {
     var orderItemsDict = GameLogicHandler.Instance.OrderManager.GetOrderItems();
-    var listItemsInGrillManager = GameLogicHandler.Instance.GrillManager.GetItemsWithLayer(1);
+    var listItemsInGrillManager = GameLogicHandler.Instance.GrillManager.GetItemsWithLayerNotObstacle(1);
 
     // foreach (var (itemId, (maxItems, num)) in orderItemsDict)
     foreach (var orderItem in orderItemsDict)

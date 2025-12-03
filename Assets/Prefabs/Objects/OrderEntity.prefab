@@ -341,6 +341,7 @@ MonoBehaviour:
   grill: {fileID: 7936457197604389760}
   container: {fileID: 5580471510356867510}
   item: {fileID: 0}
+  isOnConveyor: 0
 --- !u!1 &2488456483946815530
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +416,7 @@ SpriteRenderer:
   m_SortingLayerID: 1457521807
   m_SortingLayer: 3
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 4a53f09c833c1d7499f93cdd08cefb4a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 748ce1797964b024ba65ca1704f061e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -698,7 +699,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: c93b4c815a980b643b0ef17a3397c558, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 971a8974d25b3e64ea1ec77ed8141851, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -971,6 +972,7 @@ MonoBehaviour:
   grill: {fileID: 7936457197604389760}
   container: {fileID: 2421294009251090096}
   item: {fileID: 0}
+  isOnConveyor: 0
 --- !u!1 &8892106048167696422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,6 +1067,7 @@ MonoBehaviour:
   grill: {fileID: 7936457197604389760}
   container: {fileID: 5875263373290396380}
   item: {fileID: 0}
+  isOnConveyor: 0
 --- !u!1001 &4669925061091262935
 PrefabInstance:
   m_ObjectHideFlags: 0

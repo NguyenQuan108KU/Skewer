@@ -17,11 +17,11 @@ public class EventSystemSO_SkewerJam : EventSystemSO
 
     public override void RegisterEvents_OnDropItem(Action<Item, bool> onDropItem)
     {
-        GameLogicHandler.Instance.OnItemStartSwitch += onDropItem;
+        GameLogicHandler.Instance.OnItemStartSwitchAndCheck += onDropItem;
     }
 
     public override void UnregisterEvents_OnDropItem(Action<Item, bool> onDropItem)
     {
-        GameLogicHandler.Instance.OnItemStartSwitch -= onDropItem;
+        GameLogicHandler.Instance.OnItemStartSwitchAndCheck -= onDropItem;
     }
 }

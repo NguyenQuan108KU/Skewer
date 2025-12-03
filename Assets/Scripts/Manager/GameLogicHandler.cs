@@ -11,16 +11,19 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
   [SerializeField] private OrderManager orderManager;
   [SerializeField] private WaitingGrillManager waitingGrillManager;
   [SerializeField] private ItemManager itemManager;
+  [SerializeField] private ConveyorManager conveyorManager;
 
 
   public GrillManager GrillManager => grillManager;
   public OrderManager OrderManager => orderManager;
   public WaitingGrillManager WaitingGrillManager => waitingGrillManager;
   public ItemManager ItemManager => itemManager;
+  public ConveyorManager ConveyorManager => conveyorManager;
 
   public Item ItemSelected { get; set; }
 
   public event Action<Item, SlotBase> OnItemMoveSlot;
+  public event Action<Item, bool> OnItemStartSwitchAndCheck;
   public event Action<Item, bool> OnItemStartSwitch;
   public event Action<OrderEntity> OnAppearNextOrder;
   public event Action<int> OnAppearNextOrderItem;
@@ -52,7 +55,7 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
         if (item != null && item.id == (int)targetItem && orderSlot != null)
         {
           ItemSelected = item;
-          SwitchSlot(orderSlot);
+          SwitchSlot(orderSlot, true);
           count++;
         }
       }
@@ -60,11 +63,12 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
     TryCheckLoseGame();
   }
 
-  private void SwitchSlot(SlotBase slot)
+  private void SwitchSlot(SlotBase slot, bool fromWaitingGrill)
   {
     if (ItemSelected == null) return;
     ItemSelected.SetLockState(true);
     ItemSelected.SwitchSlot(slot);
+    OnItemStartSwitchAndCheck?.Invoke(ItemSelected, fromWaitingGrill);
     OnItemStartSwitch?.Invoke(ItemSelected, true);
   }
 
@@ -82,7 +86,7 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
     var (order, slot) = orderManager.GetDestinationSlot(item);
     if (slot != null)
     {
-      SwitchSlot(slot);
+      SwitchSlot(slot, false);
       isSwitchSuccess = true;
     }
     else
@@ -90,7 +94,7 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
       var (waitingGrill, waitingGrillSlot) = waitingGrillManager.GetDestinationSlot();
       if (waitingGrillSlot != null)
       {
-        SwitchSlot(waitingGrillSlot);
+        SwitchSlot(waitingGrillSlot, false);
         isSwitchSuccess = true;
       }
     }

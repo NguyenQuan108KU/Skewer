@@ -26,9 +26,9 @@ Transform:
   m_GameObject: {fileID: 72620288702556412}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: -0.08, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3592575568278804889}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 578235479
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 4098adad7165fa34ebbeeeccb7936eb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 37d335f59d9d7bd4aac843eb4d6b7ad9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   - {fileID: 4664563957608231973}
   - {fileID: 6577862821824336079}
   - {fileID: 3615483559783683176}
+  grillBaseBehaviorSO: {fileID: 0}
   visual: {fileID: 9140977136475256027}
   sortingGroup: {fileID: 0}
 --- !u!1 &2319180699856728710
@@ -250,6 +251,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grill: {fileID: -9206966624703387683}
   container: {fileID: 2726968867909816096}
+  item: {fileID: 0}
+  isOnConveyor: 0
 --- !u!1 &4402000035825005598
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +341,7 @@ Transform:
   m_GameObject: {fileID: 5302760357233619057}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0.56, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -359,6 +362,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grill: {fileID: -9206966624703387683}
   container: {fileID: 6069752261321560574}
+  item: {fileID: 0}
+  isOnConveyor: 0
 --- !u!1 &5744329962410688154
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +390,7 @@ Transform:
   m_GameObject: {fileID: 5744329962410688154}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7, y: 0, z: -0.1}
+  m_LocalPosition: {x: -0.56, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -406,6 +411,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grill: {fileID: -9206966624703387683}
   container: {fileID: 7816327344266415727}
+  item: {fileID: 0}
+  isOnConveyor: 0
 --- !u!1 &8739850203790712054
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,14 +12,15 @@ public class LevelData
   public List<GrillData> grillData;
   public List<OrderData> orderData;
   public LevelDifficulty difficulty;
-
+  public List<ConveyorData> conveyorData;
   public virtual LevelData Clone()
   {
     LevelData levelData = new LevelData();
     levelData.difficulty = this.difficulty;
 
     levelData.grillData = new List<GrillData>(grillData);
-
+    if (conveyorData != null)
+      levelData.conveyorData = new List<ConveyorData>(conveyorData);
     return levelData;
   }
 }
@@ -100,7 +101,8 @@ public enum GrillType
   SingleMin = 11,
   Spicy = 12,
   Broken = 13,
-  Simple = 14
+  Simple = 14,
+  Shutter = 19,
 }
 
 [Serializable]
@@ -200,6 +202,27 @@ public class Vector3Data
     return new Vector3(x, y, z);
   }
 }
+[Serializable]
+public class ConveyorData
+{
+  public int id;
+  public ConveyorType conveyorType;
+  public MoveType moveType = MoveType.Horizontal;
+  public float speed;
+  public Vector3Data position;
+  public List<int> grillIds = new List<int>();
+  public float space = 0.75f;
+}
+[Serializable]
+public enum ConveyorType
+{
+  None = 0,
+  Horizontal = 1,
+  Vertical = 2,
+  HorizontalMin = 3,
+  HorizontalSimple = 4
+}
+
 [Serializable]
 public enum MoveType
 {

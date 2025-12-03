@@ -82,7 +82,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!1 &5873943732318461255
 GameObject:
@@ -189,6 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3202793544341783507}
+  - component: {fileID: 7909564569236530898}
   m_Layer: 0
   m_Name: ConveyorHorizontal
   m_TagString: Untagged
@@ -212,3 +213,21 @@ Transform:
   - {fileID: 2075014122420008413}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7909564569236530898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740319241197001722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb1badf03092b454a9577bcf977a5640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  moveType: 1
+  container: {fileID: 5465489434015647450}
+  visualRatio: -1.2
+  visual: {fileID: 7236309632070642316}
+  visualMaterial: {fileID: 2100000, guid: f2d03ec51409d8141ab50e1a7858c030, type: 2}

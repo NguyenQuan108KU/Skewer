@@ -21,6 +21,7 @@ public class LevelData_SkewerJam : LevelData
 
       grillData = levelData.grillData,
       orderData = levelData.orderData,
+      conveyorData = levelData.conveyorData,
       numberOfWaitingGrill = this.numberOfWaitingGrill,
       rescueCondition = this.rescueCondition,
       logicOrderConfigs = this.logicOrderConfigs,

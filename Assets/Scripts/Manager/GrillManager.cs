@@ -61,7 +61,26 @@ public class GrillManager : MonoBehaviour
     }
     return items;
   }
+  public List<Item> GetItemsWithLayerNotObstacle(int layer = 1)
+  {
+    List<Item> items = new List<Item>();
 
+    foreach (var primaryGrill in listGrills)
+    {
+      if (primaryGrill.IsOnConveyorState()) continue;
+      if (primaryGrill.grillType == GrillType.Ice) continue;
+
+      foreach (var slot in primaryGrill.GetSlots())
+      {
+        var item = slot.GetItem();
+        if (item != null)
+        {
+          items.Add(item);
+        }
+      }
+    }
+    return items;
+  }
   public bool CheckClearAllItems()
   {
     foreach (var grill in listGrills)

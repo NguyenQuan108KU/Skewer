@@ -28,6 +28,7 @@ public class PrimaryGrill : GrillBase
   public bool isManualSetup = false;
 
 
+  protected bool completed = false;
   private void Awake()
   {
     if (isManualSetup)
@@ -65,7 +66,7 @@ public class PrimaryGrill : GrillBase
   }
   public virtual void OpenGrill()
   {
-    DOVirtual.DelayedCall(0.75f, () => grillVisual.OpenGrill(false), this);
+    DOVirtual.DelayedCall(1f, () => grillVisual.OpenGrill(true), this);
   }
   protected virtual void SetSubGrills()
   {
@@ -96,7 +97,7 @@ public class PrimaryGrill : GrillBase
 
   protected virtual SubGrill CreateSubGrill(int layer)
   {
-    Vector3 pos = subContainer.position + Vector3.up * layer * 0.035f + Vector3.back * layer * 0.03f + subOffset;
+    Vector3 pos = subContainer.position + (grillData.layer.Count - 1) * Vector3.down * 0.035f + Vector3.up * layer * 0.035f + Vector3.back * layer * 0.03f + subOffset;
     string subGrillName = "SubGrillNormal";
     SubGrill subGrill = Instantiate(PrefabManager.Instance.subGrillNormal, subContainer).GetComponent<SubGrill>();
     subGrill.name = subGrillName;
@@ -240,7 +241,25 @@ public class PrimaryGrill : GrillBase
     }
 
   }
-
+  public virtual void OnResetConveyorCircle()
+  {
+  }
+  public virtual bool HasSubGrills()
+  {
+    return subGrills != null && subGrills.Count > 0;
+  }
+  public override void SetMaskVisible(bool state)
+  {
+    base.SetMaskVisible(state);
+    grillVisual.SetMaskVisible(state);
+    if (subGrills != null)
+    {
+      foreach (var subGrill in subGrills)
+      {
+        subGrill.SetMaskVisible(state);
+      }
+    }
+  }
 
 
   public virtual void AddFromSub(Item item, int slotIndex, int index)

@@ -110,8 +110,13 @@ public class Item : EntityBase
   }
   IEnumerator IESpawnSmokeEffect()
   {
+    yield return new WaitForSeconds(2f);
     while (gameObject.activeInHierarchy)
     {
+      if (_isOnConveyor)
+      {
+        yield break;
+      }
       while (transform.position.y > 6)
       {
         yield return new WaitForSeconds(4f);
@@ -131,7 +136,12 @@ public class Item : EntityBase
     // GameplayController.Instance.SelectItem(this);
     // SoundManager.Instance.PlaySound(SoundType.ItemPick);
   }
-
+  bool _isOnConveyor = false;
+  public virtual void SetIsOnConveyor(bool state)
+  {
+    _isOnConveyor = state;
+    visual.SetVisibleMaskState(state);
+  }
   public virtual void SetSuggest(bool suggest)
   {
     if (visual == null) return;

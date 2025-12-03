@@ -51,9 +51,30 @@ public class OrderEntityVisual : MonoBehaviour
     OnOrderDone?.Invoke(this, EventArgs.Empty);
     yield return new WaitForSeconds(0.4f);
     var orderEntity = transform.parent.GetComponent<OrderEntity>();
-    var targetPos = orderEntity.transform.localPosition + Vector3.up * 8;
-    orderEntity.transform.DOLocalMove(targetPos, 0.3f).SetEase(upCurve);
-    yield return new WaitForSeconds(0.3f);
-    Destroy(orderEntity.gameObject);
+    orderEntity.MoveOut();
   }
+
+  public virtual void OpenGrill(bool isNormal = true, bool doEffect = true)
+  {
+    var lid = isNormal ? imageLid : bonusLid;
+    var ortherLid = isNormal ? bonusLid : imageLid;
+    ortherLid.transform.DOKill();
+    ortherLid.gameObject.SetActive(false);
+
+    lid.transform.DOKill();
+
+    if (doEffect)
+    {
+      lid.transform.localScale = Vector3.one;
+      lid.gameObject.SetActive(true);
+      lid.transform.DOLocalMoveY(2.5f, GameDefine.grillLidAnim).From(0.035f).SetEase(Ease.OutQuad);
+      // lid.transform.DOScale(0.95f, GameDefine.grillLidAnim);
+      lid.DOFade(0, GameDefine.grillLidAnim).SetEase(Ease.InQuad).OnComplete(() => { lid.gameObject.SetActive(false); });
+    }
+    else
+    {
+      lid.gameObject.SetActive(false);
+    }
+  }
+
 }

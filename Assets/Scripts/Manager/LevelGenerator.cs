@@ -39,6 +39,8 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
     var orderManager = GameLogicHandler.Instance.OrderManager;
     CreateOrder(_levelData.orderData, orderManager);
 
+    var conveyorManager = GameLogicHandler.Instance.ConveyorManager;
+    CreateConveyors(_levelData.conveyorData, conveyorManager);
     DOVirtual.DelayedCall(1, () =>
     {
       GameplayController.Instance.isReady = true;
@@ -50,10 +52,9 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
   {
     foreach (var grillData in listGrillData)
     {
-      if (grillData.isLock) grillData.grillType = GrillType.Lock;
+      // if (grillData.isLock) grillData.grillType = GrillType.Lock;
       var grillType = grillData.grillType.ValidateGrillType();
       var slotCount = grillData.SlotCount;
-
       var (validateGrillType, validateSlotCount) = ValidateGrillType(grillType, slotCount);
       if (validateGrillType == null) continue;
 
@@ -64,6 +65,20 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
     CheckObstacles();
   }
 
+
+  private void CreateConveyors(List<ConveyorData> listConveyorData, ConveyorManager conveyorManager)
+  {
+    if (listConveyorData == null) return;
+    foreach (var conveyorData in listConveyorData)
+    {
+      ConveyorType conveyorType = conveyorData.conveyorType == ConveyorType.None
+                    ? (conveyorData.moveType == MoveType.Horizontal ? ConveyorType.Horizontal : ConveyorType.Vertical)
+                    : conveyorData.conveyorType;
+      var conveyor = Instantiate(PrefabManager.Instance.GetConveyorPrefab(conveyorType), conveyorManager.transform).GetComponent<ConveyorController>();
+      conveyor.SetData(conveyorData);
+      conveyorManager.AddConveyor(conveyor);
+    }
+  }
   private void CreateWaitingGrill(int numberOfWaitingGrill, WaitingGrillManager waitingSlotManager)
   {
     waitingSlotManager.SetData(numberOfWaitingGrill);
