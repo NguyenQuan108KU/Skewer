@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SkewerJam/Xmas/XmasTone.unity
     guid: bccc05044a4307840ac439babc3dfc41
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/SoloTray.unity
+    guid: 1707a720573f1fb4c859880ede10a967
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/Moving.unity
+    guid: 9fe85ebf5b16af84ca3a827d9f1b57e9
   m_configObjects: {}

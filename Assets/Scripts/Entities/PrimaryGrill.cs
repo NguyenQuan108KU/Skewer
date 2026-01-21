@@ -49,7 +49,7 @@ public class PrimaryGrill : GrillBase
     grillVisual.SetDefaultGrill(grillData);
     this.grillData = grillData;
     id = grillData.id;
-    transform.position = grillData.position.ToVector3();
+    transform.localPosition = grillData.position.ToVector3();
     SetSlotId();
 
     if (this.grillData.layer != null && this.grillData.layer.Count > 0)
@@ -166,7 +166,6 @@ public class PrimaryGrill : GrillBase
     {
       if (slot == selectedSlot)
       {
-        Debug.Log($"ChangeItem: {slot.GetItem().id} {newId}");
         var item = slot.GetItem();
         var itemData = item.Data.Clone();
         itemData.id = newId;

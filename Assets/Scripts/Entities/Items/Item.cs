@@ -245,13 +245,14 @@ public class Item : EntityBase
   }
   public void MoveToPrimary(SlotBase slot, int index)
   {
+    slot.AddItem(this);
     SetPrimary(true);
+
     if (this.slot != null)
     {
       this.slot.ItemOut();
     }
     this.slot = slot;
-    slot.AddItem(this);
     float delay = 0.1f * index;
     transform.DOScale(1, 0.25f).SetDelay(delay).SetEase(Ease.OutBack);
     transform.DOLocalMove(Vector3.zero, 0.25f).SetEase(Ease.InSine).SetDelay(delay).OnComplete(OnIntoSlot);

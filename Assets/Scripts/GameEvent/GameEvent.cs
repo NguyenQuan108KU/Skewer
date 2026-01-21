@@ -10,9 +10,6 @@ public static class GameEvent
   public static UnityEvent OnSortGrill => _onSortGrill;
   private static UnityEvent _onUserFirstTouch = new UnityEvent();
   public static UnityEvent OnUserFirstTouch => _onUserFirstTouch;
-
-
-
-
-
+  private static UnityEvent _onLoadedLevel = new UnityEvent();
+  public static UnityEvent OnLoadedLevel => _onLoadedLevel;
 }

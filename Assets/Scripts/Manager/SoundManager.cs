@@ -19,6 +19,7 @@ public class SoundManager : SingletonBase<SoundManager>
   [SerializeField] private AudioClip doneOrder;
   [SerializeField] private AudioClip dropGrill;
   [SerializeField] private AudioClip boxAppear;
+  [SerializeField] private AudioClip warning;
   [SerializeField] private List<AudioClip> obstacleIceSfxList;
   public void PlaySound(AudioClip audioClip, float volume = 1)
   {
@@ -67,6 +68,10 @@ public class SoundManager : SingletonBase<SoundManager>
         if (!boxAppear) return;
         PlaySound(boxAppear);
         break;
+      case SoundType.Warning:
+        if (!warning) return;
+        PlaySound(warning);
+        break;
       default:
         Debug.LogWarning("Sound type not handled: " + soundType);
         break;
@@ -93,5 +98,6 @@ public enum SoundType
   ItemMerge,
   DoneOrder,
   DropGrill,
-  BoxAppear
+  BoxAppear,
+  Warning
 }

@@ -129,4 +129,15 @@ public class GrillVisual : MonoBehaviour
         break;
     }
   }
+  [SerializeField] private Color warningColor = Color.red;
+  public void PlayWarning()
+  {
+    stove.DOKill();
+    stove.DOColor(warningColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
+  }
+  public void StopWarning()
+  {
+    stove.DOKill();
+    stove.color = Color.white;
+  }
 }

@@ -41,6 +41,7 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
 
     var conveyorManager = GameLogicHandler.Instance.ConveyorManager;
     CreateConveyors(_levelData.conveyorData, conveyorManager);
+    GameEvent.OnLoadedLevel.Invoke();
     DOVirtual.DelayedCall(1, () =>
     {
       GameplayController.Instance.isReady = true;

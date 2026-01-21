@@ -18,6 +18,32 @@ public class ColumnDown : MonoBehaviour
     PrimaryGrill.OnAnyMainLayerEmpty += HandleAnyMainLayerEmpty;
   }
 
+  public void SetData(List<PrimaryGrill> primaryGrills)
+  {
+    this.primaryGrills = primaryGrills;
+    foreach (var primaryGrill in primaryGrills)
+    {
+      primaryGrill.transform.SetParent(transform);
+    }
+    offsetY = CalculateOffsetY(primaryGrills);
+  }
+
+  private float CalculateOffsetY(List<PrimaryGrill> primaryGrills)
+  {
+    float minDistance = float.MaxValue;
+    for (int i = 0; i < primaryGrills.Count; i++)
+    {
+      for (int j = i + 1; j < primaryGrills.Count; j++)
+      {
+        float distance = Vector3.Distance(primaryGrills[i].transform.position, primaryGrills[j].transform.position);
+        if (distance < minDistance)
+        {
+          minDistance = distance;
+        }
+      }
+    }
+    return minDistance;
+  }
   private void HandleAnyMainLayerEmpty(object sender, System.EventArgs e)
   {
     PrimaryGrill primaryGrill = (PrimaryGrill)sender;
@@ -82,21 +108,22 @@ public class ColumnDown : MonoBehaviour
   private Sequence AnimateFall(List<PrimaryGrill> fallingGrills)
   {
     GameObject group = new GameObject("FallGroup");
+    group.transform.SetParent(transform.parent);
     group.transform.position = fallingGrills[0].transform.position;
     foreach (var grill in fallingGrills)
       grill.transform.SetParent(group.transform, true);
 
-    Vector3 startPos = group.transform.position;
+    Vector3 startPos = group.transform.localPosition;
     Vector3 dropPos = startPos + Vector3.down * offsetY;
 
     var seq = DOTween.Sequence()
-        .Append(group.transform.DOMove(dropPos, 0.25f).SetEase(Ease.InCubic))
-        .Append(group.transform.DOMoveY(dropPos.y + 0.4f, 0.15f).SetEase(Ease.OutCubic))
-        .Append(group.transform.DOMoveY(dropPos.y, 0.15f).SetEase(Ease.InCubic))
-        .Append(group.transform.DOMoveY(dropPos.y + 0.15f, 0.1f).SetEase(Ease.OutCubic))
-        .Append(group.transform.DOMoveY(dropPos.y, 0.1f).SetEase(Ease.InCubic))
-        .Append(group.transform.DOMoveY(dropPos.y + 0.05f, 0.08f).SetEase(Ease.OutCubic))
-        .Append(group.transform.DOMoveY(dropPos.y, 0.08f).SetEase(Ease.InCubic));
+        .Append(group.transform.DOLocalMove(dropPos, 0.25f).SetEase(Ease.InCubic))
+        .Append(group.transform.DOLocalMoveY(dropPos.y + 0.4f, 0.15f).SetEase(Ease.OutCubic))
+        .Append(group.transform.DOLocalMoveY(dropPos.y, 0.15f).SetEase(Ease.InCubic))
+        .Append(group.transform.DOLocalMoveY(dropPos.y + 0.15f, 0.1f).SetEase(Ease.OutCubic))
+        .Append(group.transform.DOLocalMoveY(dropPos.y, 0.1f).SetEase(Ease.InCubic))
+        .Append(group.transform.DOLocalMoveY(dropPos.y + 0.05f, 0.08f).SetEase(Ease.OutCubic))
+        .Append(group.transform.DOLocalMoveY(dropPos.y, 0.08f).SetEase(Ease.InCubic));
 
     seq.OnComplete(() =>
     {
