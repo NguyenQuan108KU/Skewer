@@ -9,7 +9,7 @@ public class TutorialManager : MonoBehaviour
   private Item suggestItem;
   public SuggestManager suggestManager;
   public GameObject textTut;
-  private void Awake()
+  protected virtual void Awake()
   {
     GameEvent.OnUserFirstTouch.AddListener(OnItemMoveSlot);
     DOVirtual.DelayedCall(1f, () =>
@@ -29,7 +29,7 @@ public class TutorialManager : MonoBehaviour
       Hand.gameObject.SetActive(true);
     }
   }
-  private void OnItemMoveSlot()
+  protected virtual void OnItemMoveSlot()
   {
     ClearHand();
     if (suggestManager)
@@ -49,7 +49,7 @@ public class TutorialManager : MonoBehaviour
       suggestItem = null;
     }
   }
-  public Item GetSuggestItem()
+  public virtual Item GetSuggestItem()
   {
     var orderItemsDict = GameLogicHandler.Instance.OrderManager.GetOrderItems();
     var listItemsInGrillManager = GameLogicHandler.Instance.GrillManager.GetItemsWithLayerNotObstacle(1);

@@ -28,6 +28,7 @@ public class Item : EntityBase
   public SlotBase Slot => slot;
   protected bool locked;
   public bool IsLocked => locked;
+    public bool isCheck;
   public bool IsSelected { get => _isSelected; set => _isSelected = value; }
   protected bool isProcessing;
   Coroutine smokeRoutine;

@@ -12,4 +12,10 @@ public static class GameEvent
   public static UnityEvent OnUserFirstTouch => _onUserFirstTouch;
   private static UnityEvent _onLoadedLevel = new UnityEvent();
   public static UnityEvent OnLoadedLevel => _onLoadedLevel;
+
+    public static UnityEvent<Item> OnEffect = new UnityEvent<Item>();
+    public static UnityEvent OnSetFirstGrill = new UnityEvent();
+    public static UnityEvent<int> OnPlayComplete = new UnityEvent<int>();
+    public static UnityEvent HideButton = new UnityEvent();
+    public static UnityEvent ActiveButton = new UnityEvent();
 }

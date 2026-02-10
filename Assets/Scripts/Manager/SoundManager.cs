@@ -20,6 +20,7 @@ public class SoundManager : SingletonBase<SoundManager>
   [SerializeField] private AudioClip dropGrill;
   [SerializeField] private AudioClip boxAppear;
   [SerializeField] private AudioClip warning;
+  [SerializeField] private AudioClip sfxTuttkile;
   [SerializeField] private List<AudioClip> obstacleIceSfxList;
   public void PlaySound(AudioClip audioClip, float volume = 1)
   {
@@ -72,6 +73,10 @@ public class SoundManager : SingletonBase<SoundManager>
         if (!warning) return;
         PlaySound(warning);
         break;
+            case SoundType.Tuttkile:
+                if (!sfxTuttkile) return;
+                PlaySound(sfxTuttkile);
+                break;
       default:
         Debug.LogWarning("Sound type not handled: " + soundType);
         break;
@@ -99,5 +104,6 @@ public enum SoundType
   DoneOrder,
   DropGrill,
   BoxAppear,
-  Warning
+  Warning,
+  Tuttkile
 }
