@@ -1,4 +1,4 @@
-
+﻿
 
 using System;
 using System.Collections.Generic;
@@ -23,8 +23,11 @@ public class PrimaryGrill : GrillBase
   public Action<PrimaryGrill> onMainLayerEmpty;
   public Action<PrimaryGrill> onMainLayerComplete;
   public Transform SubContainer => subContainer;
+    public bool isClose;
+    public GameObject lib;
+    public float duration = 0.4f;
 
-  public int SlotCount => slots.Length;
+    public int SlotCount => slots.Length;
   public bool isManualSetup = false;
 
 
@@ -208,12 +211,43 @@ public class PrimaryGrill : GrillBase
     {
       if (!slot.isEmpty()) return;
     }
-
+        if (isClose)
+        {
+            OnClosedLib();
+        }
     UpdateSubGrills();
     onMainLayerEmpty?.Invoke(this);
-  }
 
-  public override void OnSlotUpdated(SlotBase slot)
+  }
+    public void OnClosedLib()
+    {
+        lib.SetActive(true);
+        SpriteRenderer sr = lib.GetComponent<SpriteRenderer>();
+        Color c = sr.color;
+        c.a = 1f;
+        sr.color = c;
+        lib.transform.localScale = Vector3.zero;
+
+        Vector3 startPos = lib.transform.localPosition;
+        startPos.y = 0.8f;
+        lib.transform.localPosition = startPos;
+
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(
+    lib.transform.DOScale(Vector3.one, duration)
+        .SetEase(Ease.OutBack)
+);
+        seq.Append(
+            lib.transform.DOLocalMoveY(0.2f, duration)
+                .SetEase(Ease.OutCubic)
+        );
+        seq.AppendCallback(() =>
+        {
+            SoundManager.Instance.PlaySound(SoundType.BoxClosed);
+        });
+    }
+    public override void OnSlotUpdated(SlotBase slot)
   {
     base.OnSlotUpdated(slot);
     if (slot.isEmpty())

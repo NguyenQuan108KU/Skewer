@@ -22,11 +22,11 @@ public class OrderManager : SingletonBase<OrderManager>
     [SerializeField] private Transform rightStartPos;
     [SerializeField] private Transform leftStartPos;
     private int _nextOrderIndex = 0;
-    private List<Vector3> _listOrderLocalPositions = new List<Vector3>();
+    public List<Vector3> _listOrderLocalPositions = new List<Vector3>();
     public Transform LeftStartPos => leftStartPos;
     public Transform RightStartPos => rightStartPos;
 
-    private List<OrderEntity> _listOrders = new List<OrderEntity>();
+    public List<OrderEntity> _listOrders = new List<OrderEntity>();
     public List<OrderEntity> ListOrders => _listOrders;
     [SerializeField] private List<DataOrder> dataOrders = new List<DataOrder>();
     public List<DataCharacter> dataCharacters = new List<DataCharacter>();
@@ -52,6 +52,24 @@ public class OrderManager : SingletonBase<OrderManager>
         }
 
         GameLogicHandler.Instance.OnItemMoveSlot += GameLogicHandler_OnItemMoveSlot;
+
+        // Auto-register any OrderEntity that was manually placed as child of this manager in the scene.
+        // This allows manual scene setup (LevelGenerator disabled) to work without extra inspector toggles.
+        var preplaced = GetComponentsInChildren<OrderEntity>(true);
+        if (preplaced != null && preplaced.Length > 0)
+        {
+            _listOrders.Clear();
+            foreach (var oe in preplaced)
+            {
+                if (!_listOrders.Contains(oe))
+                {
+                    _listOrders.Add(oe);
+                    // ensure visual state matches active/locked defaults
+                    oe.Visual.SetNormalOrder(true);
+                    oe.SetActive(true);
+                }
+            }
+        }
     }
 
     public (OrderEntity order, SlotBase slot) GetDestinationSlot(Item item)
@@ -96,7 +114,7 @@ public class OrderManager : SingletonBase<OrderManager>
                 }
                 else
                 {
-                    GameLogicHandler.Instance.TryCheckLoseGame();
+                    //GameLogicHandler.Instance.TryCheckLoseGame();
                 }
             }
         }

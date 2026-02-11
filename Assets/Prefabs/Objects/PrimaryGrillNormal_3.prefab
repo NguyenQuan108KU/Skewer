@@ -124,6 +124,9 @@ MonoBehaviour:
   grillVisual: {fileID: 50614590727000453}
   available: 0
   isInGameplaySpace: 1
+  isClose: 1
+  lib: {fileID: 3356711274272524072}
+  duration: 0.35
   isManualSetup: 0
 --- !u!1 &1631293541862068384
 GameObject:
@@ -418,6 +421,7 @@ MonoBehaviour:
   sortingGroup: {fileID: 0}
   lidType: 
   stoveType: 
+  warningColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &6178199528501324096
 GameObject:
   m_ObjectHideFlags: 0

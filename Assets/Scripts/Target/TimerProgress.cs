@@ -1,4 +1,4 @@
-
+﻿
 
 
 using DG.Tweening;
@@ -18,7 +18,14 @@ public class TimerProgress : MonoBehaviour
   public bool haveTimer = true;
   private bool IsStart = false;
   [SerializeField] private bool isFormatTimeMMSS = true;
-  void Start()
+    //PS: Warning Timer
+    public GameObject warningSprite;
+    public float timeWarning;
+    private Tween warningTween;
+    private bool isWarning = false;
+    public float warningSoundTimer = 0f;
+    private float warningSoundInterval = 1f; // 1 giây kêu 1 lần
+    void Start()
   {
 
     if (!haveTimer)
@@ -46,13 +53,47 @@ public class TimerProgress : MonoBehaviour
       timer -= Time.deltaTime;
       if (timerText) SetTime(timer >= 0 ? timer : 0);
       if (slider) slider.value = timer;
-      if (timer <= 10 && fillImage && fillImageRed && !isFillRed)
+      if (timer <= timeWarning && fillImage && fillImageRed && !isFillRed)
       {
         isFillRed = true;
         fillImage.sprite = fillImageRed;
         transform.DOShakeScale(1f, 0.1f, 1, 90, false).SetLoops(-1, LoopType.Restart);
       }
-      if (timer <= 0)
+            //ps
+            if (timer <= timeWarning)
+            {
+                if (!isWarning)
+                {
+                    isWarning = true;
+                    warningSoundTimer = 0f;
+                    SoundManager.Instance.PlaySound(SoundType.Warning);
+
+                    if (warningSprite)
+                    {
+                        warningSprite.SetActive(true);
+
+                        CanvasGroup cg = warningSprite.GetComponent<CanvasGroup>();
+                        if (cg == null)
+                            cg = warningSprite.AddComponent<CanvasGroup>();
+
+                        warningTween = cg.DOFade(0f, 0.5f)
+                            .SetLoops(-1, LoopType.Yoyo)
+                            .SetEase(Ease.InOutSine);
+                    }
+                }
+                else
+                {
+                    warningSoundTimer += Time.deltaTime;
+                    if (warningSoundTimer >= warningSoundInterval)
+                    {
+                        warningSoundTimer = 0f;
+                        SoundManager.Instance.PlaySound(SoundType.Warning);
+                    }
+                }
+            }
+
+            //
+            if (timer <= 0)
       {
         GameplayController.Instance.GameOver();
       }

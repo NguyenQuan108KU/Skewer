@@ -32,4 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SkewerJam/Moving.unity
     guid: 9fe85ebf5b16af84ca3a827d9f1b57e9
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/CVYBeltTime.unity
+    guid: 8fe3c0ae43b5b7745a9c1382c51083e4
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/FullscreenOCD.unity
+    guid: 052efdfe45e3f3b4084b70b440e7ff8e
   m_configObjects: {}

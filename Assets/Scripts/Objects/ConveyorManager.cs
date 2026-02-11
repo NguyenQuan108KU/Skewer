@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ConveyorManager : MonoBehaviour
 {
-  private List<ConveyorController> conveyors = new List<ConveyorController>();
+  public List<ConveyorController> conveyors = new List<ConveyorController>();
 
   public void Init()
   {

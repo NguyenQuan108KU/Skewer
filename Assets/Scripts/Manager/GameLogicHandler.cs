@@ -139,7 +139,7 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
     if (CheckWinGame())
     {
       // GameController.Instance.Win();
-      GameplayController.Instance.GameOver(true);
+      //GameplayController.Instance.GameOver(true);
     }
   }
 

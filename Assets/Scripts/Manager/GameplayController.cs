@@ -153,7 +153,7 @@ public class GameplayController : SingletonBase<GameplayController>
     {
       if (stuckType == StuckType.SkewerJam_OutOfSpace)
       {
-        panelLose.SetActive(true);
+        //panelLose.SetActive(true);
       }
       else
         panelLoseTime.SetActive(true);

@@ -8,7 +8,7 @@ public class WaitingGrillManager : MonoBehaviour
 {
   [SerializeField] private Transform centerRefPoint;
   [SerializeField] private float distance = 1.2f;
-  private List<WaitingGrill> listWaitingGrills = new List<WaitingGrill>();
+  public List<WaitingGrill> listWaitingGrills = new List<WaitingGrill>();
 
   public List<WaitingGrill> ListWaitingGrills => listWaitingGrills;
 

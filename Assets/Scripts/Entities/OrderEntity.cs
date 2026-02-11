@@ -12,12 +12,12 @@ public class OrderEntity : GrillBase
   public override EntityType entityType => EntityType.PrimaryGrill;
   [SerializeField] protected OrderEntityVisual orderEntityVisual;
 
-  private int orderIndex;
-  private bool active = false;
-  private bool ready = false;
+    public int orderIndex;
+    public bool active = false;
+  public bool ready = false;
 
-  private int itemIdTarget = 0;
-  private int maxItems = 0;
+  public int itemIdTarget = 0;
+  public int maxItems = 0;
   public int MaxItems => maxItems;
 
   public int ItemIdTarget => itemIdTarget;
