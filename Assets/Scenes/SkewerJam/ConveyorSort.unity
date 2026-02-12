@@ -7578,6 +7578,11 @@ MonoBehaviour:
   grillBaseBehaviorSO: {fileID: 0}
   container: {fileID: 2056632566}
   orderEntityVisual: {fileID: 1359233456}
+  orderIndex: 0
+  active: 0
+  ready: 0
+  itemIdTarget: 0
+  maxItems: 0
 --- !u!61 &402222042
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11742,6 +11747,11 @@ MonoBehaviour:
   grillBaseBehaviorSO: {fileID: 0}
   container: {fileID: 805666952}
   orderEntityVisual: {fileID: 2063832433}
+  orderIndex: 0
+  active: 0
+  ready: 0
+  itemIdTarget: 0
+  maxItems: 0
 --- !u!61 &701489849
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26248,6 +26258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerRefPoint: {fileID: 2121907463}
   distance: 1.2
+  listWaitingGrills: []
 --- !u!1 &1139085978
 GameObject:
   m_ObjectHideFlags: 0
@@ -29830,6 +29841,11 @@ MonoBehaviour:
   grillBaseBehaviorSO: {fileID: 0}
   container: {fileID: 1973785188}
   orderEntityVisual: {fileID: 1941178095}
+  orderIndex: 0
+  active: 0
+  ready: 0
+  itemIdTarget: 0
+  maxItems: 0
 --- !u!61 &1398869508
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -31189,6 +31205,7 @@ MonoBehaviour:
   rightStartPos: {fileID: 439233724}
   leftStartPos: {fileID: 1540088102}
   _listOrderLocalPositions: []
+  _listOrders: []
   dataOrders:
   - itemId: 16
     num: 2
@@ -53878,7 +53895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5913661689819127384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56427,6 +56444,11 @@ MonoBehaviour:
   grillBaseBehaviorSO: {fileID: 0}
   container: {fileID: 2474575533926158456}
   orderEntityVisual: {fileID: 5913661689819127384}
+  orderIndex: 0
+  active: 0
+  ready: 0
+  itemIdTarget: 0
+  maxItems: 0
 --- !u!4 &8209322276505783846
 Transform:
   m_ObjectHideFlags: 0

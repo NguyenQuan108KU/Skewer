@@ -80,6 +80,7 @@ public class ItemBehaviorSO_SkewerJam : ItemBehaviorSO
         {
             item.Slot.ItemOut();
         }
+        item.transform.rotation = Quaternion.identity;  
         item.Visual.SetMaskInteraction(UnityEngine.SpriteMaskInteraction.None);
         item.SetSlot(slot);
         item.SetSelected(true);

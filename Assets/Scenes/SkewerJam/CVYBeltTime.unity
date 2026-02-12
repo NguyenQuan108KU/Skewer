@@ -587,6 +587,7 @@ MonoBehaviour:
   boxAppear: {fileID: 8300000, guid: b0a48a912112ea8428dd7428854e4d59, type: 3}
   warning: {fileID: 8300000, guid: 7381ec57a0bb5564484c4cd8057dbb75, type: 3}
   sfxTuttkile: {fileID: 0}
+  boxClosed: {fileID: 0}
   obstacleIceSfxList: []
 --- !u!4 &107172470
 Transform:
@@ -4669,6 +4670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerRefPoint: {fileID: 2121907463}
   distance: 1.2
+  listWaitingGrills: []
 --- !u!1 &1139085978
 GameObject:
   m_ObjectHideFlags: 0
@@ -5600,7 +5602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1494943770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6024,6 +6026,8 @@ MonoBehaviour:
   distance: 2.6
   rightStartPos: {fileID: 439233724}
   leftStartPos: {fileID: 1540088102}
+  _listOrderLocalPositions: []
+  _listOrders: []
   dataOrders:
   - itemId: 17
     num: 2

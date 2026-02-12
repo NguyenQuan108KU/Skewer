@@ -138,9 +138,9 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
 
     if (CheckWinGame())
     {
-      // GameController.Instance.Win();
-      //GameplayController.Instance.GameOver(true);
-    }
+            // GameController.Instance.Win();
+            GameplayController.Instance.GameOver(true);
+        }
   }
 
   public bool CheckWinGame()
@@ -153,8 +153,8 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
     var stuckType = CheckLoseGame();
     if (stuckType != null)
     {
-      // GameController.Instance.Stuck(stuckType.Value);
-      GameplayController.Instance.GameOver(false, stuckType);
+            //GameController.Instance.Stuck(stuckType.Value);
+            GameplayController.Instance.GameOver(false, stuckType);
     }
   }
 

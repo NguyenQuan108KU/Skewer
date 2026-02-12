@@ -17,9 +17,9 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
   [SerializeField] private ItemSO itemSO;
   private void Start()
   {
-    //Init();
-    //GenerateLevel();
-  }
+        Init();
+        GenerateLevel();
+    }
 
   public void Init()
   {

@@ -100,6 +100,7 @@ public class OrderManager : SingletonBase<OrderManager>
                     var checkNextOrder = OrderHelper.CheckCreateNextOrder();
                     orderEntity.PlayComplete(() =>
                     {
+
                         GameLogicHandler.Instance.CompleteCollectItem(orderEntity);
                         if (checkNextOrder == false)
                         {
@@ -114,7 +115,7 @@ public class OrderManager : SingletonBase<OrderManager>
                 }
                 else
                 {
-                    //GameLogicHandler.Instance.TryCheckLoseGame();
+                    GameLogicHandler.Instance.TryCheckLoseGame();
                 }
             }
         }

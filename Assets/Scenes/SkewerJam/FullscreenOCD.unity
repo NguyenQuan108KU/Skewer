@@ -1415,7 +1415,7 @@ MonoBehaviour:
   levelDataFile: {fileID: 4900000, guid: 072ff3cd61cfa484f937f5839386fc9a, type: 3}
   grillManager: {fileID: 195646738}
   itemDataList: []
-  itemSO: {fileID: 11400000, guid: 1276f98b72787634785d8408898f3941, type: 2}
+  itemSO: {fileID: 11400000, guid: 6ea085ba383e3b248823d529e4a7c7ed, type: 2}
 --- !u!1 &271671167
 GameObject:
   m_ObjectHideFlags: 0
@@ -4513,6 +4513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerRefPoint: {fileID: 2121907463}
   distance: 1.2
+  listWaitingGrills: []
 --- !u!1 &1139085978
 GameObject:
   m_ObjectHideFlags: 0
@@ -5868,6 +5869,8 @@ MonoBehaviour:
   distance: 2.6
   rightStartPos: {fileID: 439233724}
   leftStartPos: {fileID: 1540088102}
+  _listOrderLocalPositions: []
+  _listOrders: []
   dataOrders: []
   dataCharacters: []
 --- !u!1 &1618167281
