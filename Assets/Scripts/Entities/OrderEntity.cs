@@ -12,6 +12,7 @@ public class OrderEntity : GrillBase
   public override EntityType entityType => EntityType.PrimaryGrill;
   [SerializeField] protected OrderEntityVisual orderEntityVisual;
 
+    public GameObject tick;
     public int orderIndex;
     public bool active = false;
   public bool ready = false;
@@ -131,8 +132,20 @@ public class OrderEntity : GrillBase
     }
     orderEntityVisual.PlayComplete(onComplete);
   }
+    public void CloseLib()
+    {
+        orderEntityVisual.PlayEndlessClose();
+    }
+    public void PlayOrderComplete(Action onComplete)
+    {
+        foreach (var slot in slots)
+        {
+            slot.GetItem()?.OnComplete();
+        }
+        orderEntityVisual.PlayEndlessMove(onComplete);
+    }
 
-  public virtual void MoveOut()
+    public virtual void MoveOut()
   {
     var targetPos = transform.localPosition + Vector3.up * 8;    //8
     transform.DOLocalMove(targetPos, 0.3f).SetEase(orderEntityVisual.upCurve);
@@ -141,4 +154,13 @@ public class OrderEntity : GrillBase
       Destroy(gameObject);
     });
   }
+    public virtual void MoveOutRight()
+    {
+        var targetPos = transform.localPosition + Vector3.right * 30;    //8
+        transform.DOLocalMove(targetPos, 0.3f).SetEase(orderEntityVisual.upCurve);
+        DOVirtual.DelayedCall(0.3f, () =>
+        {
+            Destroy(gameObject);
+        });
+    }
 }

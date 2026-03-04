@@ -37,24 +37,58 @@ public class OrderEntityVisual : MonoBehaviour
     // Effect
     StartCoroutine(IComplete(onComplete));
   }
-
+    
   private IEnumerator IComplete(Action onComplete)
   {
-    imageLid.gameObject.SetActive(true);
-    imageLid.transform.localPosition = Vector3.up * 8;
-    imageLid.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(downCurve);
-    yield return new WaitForSeconds(0.3f);
-    completeEffect.Play();
-    // SOUND
-    SoundManager.Instance.PlaySound(SoundType.ItemMerge);
-    onComplete?.Invoke();
-    OnOrderDone?.Invoke(this, EventArgs.Empty);
-    yield return new WaitForSeconds(0.4f);
-    var orderEntity = transform.parent.GetComponent<OrderEntity>();
-    orderEntity.MoveOut();
-  }
+        imageLid.gameObject.SetActive(true);
+        imageLid.transform.localPosition = Vector3.up * 8;
+        imageLid.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(downCurve);
+        yield return new WaitForSeconds(0.3f);
+        completeEffect.Play();
+        // SOUND
+        SoundManager.Instance.PlaySound(SoundType.ItemMerge);
+        onComplete?.Invoke();
+        OnOrderDone?.Invoke(this, EventArgs.Empty);
+        yield return new WaitForSeconds(0.4f);
+        var orderEntity = transform.parent.GetComponent<OrderEntity>();
+        orderEntity.MoveOut();
+    }
+    //=====================Endless====================
+    public void PlayEndlessClose()
+    {
+        StartCoroutine(IEndlessClose());
+    }
+    public void PlayEndlessMove(Action onComplete)
+    {
+        StartCoroutine(IEndlessMove(onComplete));
+    }
+    private IEnumerator IEndlessClose()
+    {
+        imageLid.gameObject.SetActive(true);
+        imageLid.transform.localPosition = Vector3.up * 8;
+        imageLid.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(downCurve);
+        yield return new WaitForSeconds(0.3f);
+        completeEffect.Play();
+        // SOUND
+        SoundManager.Instance.PlaySound(SoundType.ItemMerge);
+        //onComplete?.Invoke();
+        OnOrderDone?.Invoke(this, EventArgs.Empty);
+        yield return new WaitForSeconds(0.4f);
+        var orderEntity = transform.parent.GetComponent<OrderEntity>();
+    }
+    private IEnumerator IEndlessMove(Action onComplete)
+    {
+        SoundManager.Instance.PlaySound(SoundType.ItemMerge);
+        onComplete?.Invoke();
+        OnOrderDone?.Invoke(this, EventArgs.Empty);
+        yield return new WaitForSeconds(0.4f);
+        var orderEntity = transform.parent.GetComponent<OrderEntity>();
+        orderEntity.MoveOutRight();
+    }
 
-  public virtual void OpenGrill(bool isNormal = true, bool doEffect = true)
+
+
+    public virtual void OpenGrill(bool isNormal = true, bool doEffect = true)
   {
     var lid = isNormal ? imageLid : bonusLid;
     var ortherLid = isNormal ? bonusLid : imageLid;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +15,10 @@ public class OrderManager : SingletonBase<OrderManager>
 
     [SerializeField] private int defaultNumberOfReadyOrder = 4;
     [SerializeField] private OrderEntityConfigSO orderEntityConfigSO;
-    [SerializeField] private float delayAlignOrders = 0.5f;
+    [SerializeField] public float delayAlignOrders = 0.5f;
 
     [Header("Align")]
-    [SerializeField] private float distance = 2.6f;
+    [SerializeField] public float distance = 2.6f;
     [SerializeField] private Transform rightStartPos;
     [SerializeField] private Transform leftStartPos;
     private int _nextOrderIndex = 0;
@@ -30,7 +30,6 @@ public class OrderManager : SingletonBase<OrderManager>
     public List<OrderEntity> ListOrders => _listOrders;
     [SerializeField] private List<DataOrder> dataOrders = new List<DataOrder>();
     public List<DataCharacter> dataCharacters = new List<DataCharacter>();
-
     void Start()
     {
         Init();
@@ -87,7 +86,7 @@ public class OrderManager : SingletonBase<OrderManager>
         }
         return (null, null);
     }
-    private void GameLogicHandler_OnItemMoveSlot(Item item, SlotBase slot)
+    public virtual void GameLogicHandler_OnItemMoveSlot(Item item, SlotBase slot)
     {
         if (slot.GetGrill() is OrderEntity orderEntity)
         {
@@ -186,7 +185,7 @@ public class OrderManager : SingletonBase<OrderManager>
         });
     }
 
-    public void AlignObjects()
+    public virtual void AlignObjects()
     {
         StartCoroutine(IAlignObjects());
         // DOVirtual.DelayedCall(delayAlignOrders, () =>
@@ -205,7 +204,7 @@ public class OrderManager : SingletonBase<OrderManager>
         // });
     }
 
-    private IEnumerator IAlignObjects()
+    public virtual IEnumerator IAlignObjects()
     {
         yield return new WaitForSeconds(delayAlignOrders);
         var start = -(_listOrders.Count - 1) * distance / 2;
@@ -229,7 +228,7 @@ public class OrderManager : SingletonBase<OrderManager>
         return orderEntity;
     }
 
-    public void PlayAppearOrders()
+    public virtual void PlayAppearOrders()
     {
         DOVirtual.DelayedCall(.1f, () =>
         {
