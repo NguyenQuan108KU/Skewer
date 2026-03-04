@@ -96,7 +96,8 @@ public class TimerProgress : MonoBehaviour
             if (timer <= 0)
       {
         GameplayController.Instance.GameOver();
-      }
+                warningSprite.SetActive(false);
+            }
     }
   }
 
