@@ -10,7 +10,7 @@ public class OrderManager : SingletonBase<OrderManager>
     // Start is called before the first frame update
     // [SerializeField] private OrderManagerSO orderManagerSO;
     [LunaPlaygroundField(fieldSection: "Order Settings")]
-    [SerializeField] private int maxOrder = 4;
+    [SerializeField] public int maxOrder = 4;
     [LunaPlaygroundField(fieldSection: "Order Settings")]
 
     [SerializeField] private int defaultNumberOfReadyOrder = 4;
@@ -21,14 +21,14 @@ public class OrderManager : SingletonBase<OrderManager>
     [SerializeField] public float distance = 2.6f;
     [SerializeField] private Transform rightStartPos;
     [SerializeField] private Transform leftStartPos;
-    private int _nextOrderIndex = 0;
+    public int _nextOrderIndex = 0;
     public List<Vector3> _listOrderLocalPositions = new List<Vector3>();
     public Transform LeftStartPos => leftStartPos;
     public Transform RightStartPos => rightStartPos;
 
     public List<OrderEntity> _listOrders = new List<OrderEntity>();
     public List<OrderEntity> ListOrders => _listOrders;
-    [SerializeField] private List<DataOrder> dataOrders = new List<DataOrder>();
+    [SerializeField] public List<DataOrder> dataOrders = new List<DataOrder>();
     public List<DataCharacter> dataCharacters = new List<DataCharacter>();
     void Start()
     {
@@ -41,7 +41,7 @@ public class OrderManager : SingletonBase<OrderManager>
 
     }
 
-    public void Init()
+    public virtual void Init()
     {
         var startPos = -(maxOrder - 1) * distance / 2;
         for (int i = 0; i < maxOrder; i++)
@@ -242,7 +242,7 @@ public class OrderManager : SingletonBase<OrderManager>
                 orderPos.y = transform.position.y;
                 order.transform.position = orderPos;
             }
-            DOVirtual.DelayedCall(.1f, () =>
+            DOVirtual.DelayedCall(.05f, () =>
             {
                 StartCoroutine(IAppearOrders());
             });
@@ -259,7 +259,7 @@ public class OrderManager : SingletonBase<OrderManager>
             {
                 GameLogicHandler.Instance.AppearNextOrder(order, true);
             });
-            yield return new WaitForSeconds(.2f);
+            yield return new WaitForSeconds(.1f);
         }
 
     }

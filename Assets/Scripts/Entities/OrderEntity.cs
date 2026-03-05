@@ -157,7 +157,7 @@ public class OrderEntity : GrillBase
     public virtual void MoveOutRight()
     {
         var targetPos = transform.localPosition + Vector3.right * 30;    //8
-        transform.DOLocalMove(targetPos, 0.3f).SetEase(orderEntityVisual.upCurve);
+        transform.DOLocalMove(targetPos, 1f).SetEase(orderEntityVisual.upCurve);
         DOVirtual.DelayedCall(0.3f, () =>
         {
             Destroy(gameObject);

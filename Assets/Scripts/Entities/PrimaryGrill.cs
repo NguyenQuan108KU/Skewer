@@ -238,14 +238,14 @@ public class PrimaryGrill : GrillBase
     lib.transform.DOScale(Vector3.one, duration)
         .SetEase(Ease.OutBack)
 );
-        seq.Append(
-            lib.transform.DOLocalMoveY(0.2f, duration)
-                .SetEase(Ease.OutCubic)
-        );
         seq.AppendCallback(() =>
         {
             SoundManager.Instance.PlaySound(SoundType.BoxClosed);
         });
+        seq.Append(
+            lib.transform.DOLocalMoveY(0.2f, duration)
+                .SetEase(Ease.OutCubic)
+        );
     }
     public override void OnSlotUpdated(SlotBase slot)
   {

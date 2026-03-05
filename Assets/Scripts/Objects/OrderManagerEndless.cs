@@ -63,7 +63,18 @@ public class OrderManagerEndless : OrderManager
             GameLogicHandler.Instance.CollectItem(order);
 
             // Tạo order mới nhưng chưa cho move
-            var (itemId, num) = OrderHelper.GetItemOrder();
+            int itemId, num;
+
+            if (dataOrders != null && dataOrders.Count > 0)
+            {
+                itemId = dataOrders[0].itemId;
+                num = dataOrders[0].num;
+                dataOrders.RemoveAt(0);
+            }
+            else
+            {
+                (itemId, num) = OrderHelper.GetItemOrder();
+            }
             var newOrder = CreateNextOrder(itemId, num);
             newOrder.SetOrderIndex(order.OrderIndex);
             newOrder.ready = true;
@@ -81,7 +92,7 @@ public class OrderManagerEndless : OrderManager
             var firstOrder = newOrders[0];
             var firstShipper = listShipper[0];
             firstShipper.transform.SetParent(firstOrder.transform, false);
-            firstShipper.transform.localPosition = new Vector3(-4.04f, 0.1f, 0);
+            firstShipper.transform.localPosition = new Vector3(-4.4f, 0.1f, 0);
             listShipper.RemoveAt(0);
         }
 
@@ -97,6 +108,13 @@ public class OrderManagerEndless : OrderManager
             }
 
             AlignObjects();
+            DOVirtual.DelayedCall(0.5f, () =>
+            {
+                foreach (var order in newOrders)
+                {
+                    GameLogicHandler.Instance.AppearNextOrder(order, true);
+                }
+            });
         });
 
         completeThreshold = 0;
@@ -152,7 +170,7 @@ public class OrderManagerEndless : OrderManager
         var firstShipper = listShipper[0];
 
         firstShipper.transform.SetParent(firstOrder.transform, false);
-        firstShipper.transform.localPosition = new Vector3(-4.04f, 0.1f, 0);
+        firstShipper.transform.localPosition = new Vector3(-4.4f, 0.1f, 0);
         listShipper.RemoveAt(0);
     }
     private void AppearOrdersSimultaneous()

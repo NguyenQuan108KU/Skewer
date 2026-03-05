@@ -16,9 +16,16 @@ public class TutorialManager : MonoBehaviour
     {
       ShowHand();
     });
-
-  }
-  public void ShowHand()
+    }
+    private void Start()
+    {
+        DOVirtual.DelayedCall(3f, () =>
+        {
+            textTut.SetActive(true);
+            Hand.gameObject.SetActive(true);
+        });
+    }
+    public void ShowHand()
   {
     var item = GetSuggestItem();
     if (item != null)
