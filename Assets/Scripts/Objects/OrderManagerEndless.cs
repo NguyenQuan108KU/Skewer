@@ -92,7 +92,7 @@ public class OrderManagerEndless : OrderManager
             var firstOrder = newOrders[0];
             var firstShipper = listShipper[0];
             firstShipper.transform.SetParent(firstOrder.transform, false);
-            firstShipper.transform.localPosition = new Vector3(-4.4f, 0.1f, 0);
+            firstShipper.transform.localPosition = new Vector3(-4.55f, 0.64f, 0);
             listShipper.RemoveAt(0);
         }
 
@@ -103,7 +103,7 @@ public class OrderManagerEndless : OrderManager
             {
                 order.transform.DOLocalMove(
                     _listOrderLocalPositions[order.OrderIndex],
-                    0.3f
+                    0.65f
                 ).SetEase(Ease.OutSine);
             }
 
@@ -140,7 +140,7 @@ public class OrderManagerEndless : OrderManager
     }
     public override void PlayAppearOrders()
     {
-        DOVirtual.DelayedCall(.1f, () =>
+        DOVirtual.DelayedCall(.01f, () =>
         {
             for (int i = 0; i < _listOrders.Count; i++)
             {
@@ -148,16 +148,15 @@ public class OrderManagerEndless : OrderManager
                 order.transform.DOKill();
 
                 // 👇 Offset sẵn theo index
-                var startX = RightStartPos.localPosition.x + distance * i;
+                var startX = RightStartPos.position.x;
+                Debug.Log($"StartPos for order {i}: {startX}");
                 var startPos = new Vector3(startX, 0, 0);
-
                 order.transform.localPosition = startPos;
             }
 
-            DOVirtual.DelayedCall(.05f, () =>
-            {
+           
                 AppearOrdersSimultaneous();
-            });
+        
         });
             AssignShipperToFirstOrder();
     }
@@ -170,7 +169,7 @@ public class OrderManagerEndless : OrderManager
         var firstShipper = listShipper[0];
 
         firstShipper.transform.SetParent(firstOrder.transform, false);
-        firstShipper.transform.localPosition = new Vector3(-4.4f, 0.1f, 0);
+        firstShipper.transform.localPosition = new Vector3(-4.55f, 0.64f, 0);
         listShipper.RemoveAt(0);
     }
     private void AppearOrdersSimultaneous()
@@ -179,7 +178,7 @@ public class OrderManagerEndless : OrderManager
         {
             order.transform.DOLocalMove(
                 _listOrderLocalPositions[order.OrderIndex],
-                1f
+                0.65f
             ).SetEase(Ease.OutCubic);
 
             GameLogicHandler.Instance.AppearNextOrder(order, true);

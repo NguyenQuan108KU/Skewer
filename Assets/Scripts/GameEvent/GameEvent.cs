@@ -18,4 +18,5 @@ public static class GameEvent
     public static UnityEvent<int> OnPlayComplete = new UnityEvent<int>();
     public static UnityEvent HideButton = new UnityEvent();
     public static UnityEvent ActiveButton = new UnityEvent();
+    public static UnityEvent StartLevel2 = new UnityEvent();    
 }

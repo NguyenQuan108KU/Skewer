@@ -27,7 +27,9 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
   }
   public void GenerateLevel()
   {
-    _levelData = JsonConvert.DeserializeObject<LevelData_SkewerJam>(levelDataFile.text);
+        ClearLevel();
+        PrimaryGrillIce.primaryGrillIces.Clear(); 
+        _levelData = JsonConvert.DeserializeObject<LevelData_SkewerJam>(levelDataFile.text);
     _levelData = ValidateLevelData(_levelData);
 
     GameLogicHandler.Instance.ItemManager.Init();
@@ -109,7 +111,7 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
   private LevelData_SkewerJam ValidateLevelData(LevelData_SkewerJam levelData)
   {
     var levelDataSkewerJam = levelData.CloneSkewerJam();
-    levelDataSkewerJam.numberOfWaitingGrill = 5;
+    levelDataSkewerJam.numberOfWaitingGrill = 3;
 
     // 
     levelDataSkewerJam.rescueCondition = new RescueCondition();
@@ -132,4 +134,27 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
     }
     return itemSO.GetItemData(id);
   }
+    void ClearLevel()
+    {
+        // grill
+        foreach (Transform child in grillManager.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        grillManager.Clear();
+
+        // order
+        foreach (Transform child in GameLogicHandler.Instance.OrderManager.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        GameLogicHandler.Instance.OrderManager.ListOrders.Clear();
+
+        // conveyor
+        foreach (Transform child in GameLogicHandler.Instance.ConveyorManager.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        GameLogicHandler.Instance.ConveyorManager.Clear(); // thêm dòng này
+    }
 }

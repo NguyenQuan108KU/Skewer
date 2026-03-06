@@ -92,6 +92,7 @@ public class Item : EntityBase
     // offset = transform.position - mousePos;
     // _isSelected = true;
     // OnSelected();
+
     itemBehaviorSO.OnMouseDown(this);
   }
   private Vector3 vel;

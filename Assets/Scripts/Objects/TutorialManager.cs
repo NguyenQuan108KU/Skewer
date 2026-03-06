@@ -19,11 +19,22 @@ public class TutorialManager : MonoBehaviour
     }
     private void Start()
     {
-        DOVirtual.DelayedCall(3f, () =>
+        DOVirtual.DelayedCall(1.2f, () =>
         {
             textTut.SetActive(true);
             Hand.gameObject.SetActive(true);
         });
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if(Hand.gameObject.activeSelf || textTut.gameObject.activeSelf)
+            {
+                textTut.SetActive(false);
+                Hand.gameObject.SetActive(false);
+            }
+        }
     }
     public void ShowHand()
   {

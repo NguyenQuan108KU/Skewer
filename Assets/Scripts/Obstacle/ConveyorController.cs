@@ -10,9 +10,9 @@ public class ConveyorController : EntityBase
   [SerializeField] protected MoveType moveType;
   protected ConveyorData conveyData;
   [SerializeField] protected Transform container;
-  protected Vector3 startPosition;
-  protected Vector3 endPosition;
-  protected List<PrimaryGrill> grills;
+  public Vector3 startPosition;
+    public Vector3 endPosition;
+  public List<PrimaryGrill> grills;
   protected float spacing = 4f;
   protected Vector3 direction;
   protected Vector3 conveySpeed;
@@ -86,8 +86,8 @@ public class ConveyorController : EntityBase
     direction = moveType == MoveType.Horizontal
             ? (conveyData.speed > 0 ? Vector3.right : Vector3.left)
             : (conveyData.speed > 0 ? Vector3.up : Vector3.down);
-    // StartMovement();
-  }
+        StartMovement();
+    }
 
   private void StartMovement()
   {

@@ -47,4 +47,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SkewerJam/2Levels.unity
     guid: eefae89ca12f53241b2d816174b52cab
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/CVYBeltTime 1.unity
+    guid: e45e5e54376f72f4aa8685a65a0e7246
   m_configObjects: {}

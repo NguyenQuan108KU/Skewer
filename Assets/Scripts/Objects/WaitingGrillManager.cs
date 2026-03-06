@@ -20,6 +20,7 @@ public class WaitingGrillManager : MonoBehaviour
 
   public void SetData(int numberOfWaitingGrill)
   {
+
     for (int i = 0; i < numberOfWaitingGrill; i++)
     {
       var waitingGrill = Instantiate(PrefabManager.Instance.waitingGrill, transform).GetComponent<WaitingGrill>();
@@ -62,4 +63,13 @@ public class WaitingGrillManager : MonoBehaviour
     }
     return true;
   }
+    public void Clear()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
+        listWaitingGrills.Clear();
+    }
 }

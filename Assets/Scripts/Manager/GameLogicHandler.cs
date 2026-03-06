@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -142,8 +143,24 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
             GameplayController.Instance.GameOver(true);
         }
   }
+    // ===============2 Levels================
+    public void CollectItem2Levels(OrderEntity orderEntity)
+    {
+        OnCollectItem?.Invoke((int)orderEntity.ItemIdTarget);
+        OnStartCollectItem?.Invoke(orderEntity);
 
-  public bool CheckWinGame()
+        if (CheckWinGame())
+        {
+            StartCoroutine(StartLevel2Delay());
+        }
+    }
+
+    private IEnumerator StartLevel2Delay()
+    {
+        yield return new WaitForSeconds(1.2f);
+        GameEvent.StartLevel2?.Invoke();
+    }
+    public bool CheckWinGame()
   {
     if (grillManager.CheckClearAllItems() && waitingGrillManager.CheckClearAllItems()) return true;
     return false;

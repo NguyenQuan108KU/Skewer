@@ -124,6 +124,9 @@ MonoBehaviour:
   grillVisual: {fileID: 163879808750107544}
   available: 0
   isInGameplaySpace: 1
+  isClose: 0
+  lib: {fileID: 0}
+  duration: 0.4
   isManualSetup: 0
   iceState: 3
   visualIce: {fileID: 163879808750107544}
@@ -241,7 +244,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!1 &3039583390793560684
 GameObject:
@@ -535,7 +538,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!1 &3876797694531649971
 GameObject:
@@ -653,7 +656,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!1 &5971363865035157736
 GameObject:
@@ -711,6 +714,7 @@ MonoBehaviour:
   sortingGroup: {fileID: 0}
   lidType: 
   stoveType: 
+  warningColor: {r: 1, g: 0, b: 0, a: 1}
   iceStates:
   - {fileID: 9113363844299165237}
   - {fileID: 892030838584510599}
