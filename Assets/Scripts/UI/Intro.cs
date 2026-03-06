@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Intro : MonoBehaviour
 {
+    public bool isLevel2;
+    public GameObject buttonStore;
     public List<DataOrder> dataOrders = new List<DataOrder>();
 
     public GameObject iconEasy;
@@ -97,5 +99,7 @@ public class Intro : MonoBehaviour
         OrderManager.Instance.dataOrders = dataOrders;
         LevelGenerator.Instance.levelDataFile = levelDataFileHard;  
         LevelGenerator.Instance.GenerateLevel();
+        if(isLevel2)
+            buttonStore.SetActive(true);
     }
 }
