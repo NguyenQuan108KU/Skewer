@@ -9,8 +9,8 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
 {
   [Header("Core")]
   [SerializeField] private GrillManager grillManager;
-  [SerializeField] private OrderManager orderManager;
-  [SerializeField] private WaitingGrillManager waitingGrillManager;
+  [SerializeField] public OrderManager orderManager;
+  [SerializeField] public WaitingGrillManager waitingGrillManager;
   [SerializeField] private ItemManager itemManager;
   [SerializeField] private ConveyorManager conveyorManager;
 
@@ -34,7 +34,17 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
 
   private int pumpkin = 0;
   public int Pumpkin => pumpkin;
-  public void AppearNextOrder(OrderEntity orderEntity, bool startLevel = false)
+    public bool isStartLevel2;
+    protected void TriggerAppearNextOrder(OrderEntity orderEntity)
+    {
+        OnAppearNextOrder?.Invoke(orderEntity);
+    }
+
+    protected void TriggerAppearNextOrderItem(int itemId)
+    {
+        OnAppearNextOrderItem?.Invoke(itemId);
+    }
+    public virtual void AppearNextOrder(OrderEntity orderEntity, bool startLevel = false)
   {
     orderEntity.SetReady(true);
     if (startLevel == false)
@@ -55,7 +65,7 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
         var orderSlot = order.GetAvailableSlot();
         if (item != null && item.id == (int)targetItem && orderSlot != null)
         {
-          ItemSelected = item;
+                    ItemSelected = item;
           SwitchSlot(orderSlot, true);
           count++;
         }
@@ -64,9 +74,9 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
     TryCheckLoseGame();
   }
 
-  private void SwitchSlot(SlotBase slot, bool fromWaitingGrill)
+  public virtual void SwitchSlot(SlotBase slot, bool fromWaitingGrill)
   {
-    if (ItemSelected == null) return;
+        if (ItemSelected == null) return;
     ItemSelected.SetLockState(true);
     ItemSelected.SwitchSlot(slot);
     OnItemStartSwitchAndCheck?.Invoke(ItemSelected, fromWaitingGrill);
@@ -149,9 +159,14 @@ public class GameLogicHandler : SingletonBase<GameLogicHandler>
         OnCollectItem?.Invoke((int)orderEntity.ItemIdTarget);
         OnStartCollectItem?.Invoke(orderEntity);
 
-        if (CheckWinGame())
+        if (CheckWinGame() && !isStartLevel2)
         {
             StartCoroutine(StartLevel2Delay());
+            isStartLevel2 = true;
+        }
+        else if(CheckWinGame() && isStartLevel2)
+        {
+            GameplayController.Instance.GameOver(true);
         }
     }
 

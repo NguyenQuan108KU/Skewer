@@ -44,7 +44,9 @@ public class OrderManagerEndless : OrderManager
 
     private void HandleDoubleComplete()
     {
-        var completedOrders = new List<OrderEntity>(_waitingComplete);
+        var completedOrders = _waitingComplete
+    .OrderByDescending(o => o.OrderIndex)
+    .ToList();
 
         foreach (var order in completedOrders)
         {
@@ -79,20 +81,37 @@ public class OrderManagerEndless : OrderManager
             newOrder.SetOrderIndex(order.OrderIndex);
             newOrder.ready = true;
             // Đặt tất cả ở cùng vị trí start
+            // Spawn tại LeftPoint nhưng có khoảng cách
             var startPos = LeftStartPos.position;
             startPos.z = 0;
             startPos.y = transform.position.y;
+
+            // tạo khoảng cách giữa các order
+            float spacing = 2.6f;
+            startPos.x -= newOrders.Count * spacing;
+
             newOrder.transform.position = startPos;
 
             newOrders.Add(newOrder);
         }
         // ✅ GÁN SHIPPER ĐẦU TIÊN CHO ORDER MỚI ĐẦU TIÊN
-        if (newOrders.Count > 0 && listShipper != null && listShipper.Count > 0)
+        if (listShipper != null && listShipper.Count > 0)
         {
-            var firstOrder = newOrders[0];
             var firstShipper = listShipper[0];
-            firstShipper.transform.SetParent(firstOrder.transform, false);
-            firstShipper.transform.localPosition = new Vector3(-4.55f, 0.64f, 0);
+
+            DOVirtual.DelayedCall(0.6f, () =>
+            {
+                if (_listOrders.Count == 0) return;
+
+                // tìm order có X nhỏ nhất
+                var leftOrder = _listOrders
+                    .OrderBy(o => o.transform.localPosition.x)
+                    .First();
+
+                firstShipper.transform.SetParent(leftOrder.transform, false);
+                firstShipper.transform.localPosition = new Vector3(-4.472f, 0.64f, 0);
+            });
+
             listShipper.RemoveAt(0);
         }
 
@@ -105,9 +124,10 @@ public class OrderManagerEndless : OrderManager
                     _listOrderLocalPositions[order.OrderIndex],
                     0.65f
                 ).SetEase(Ease.OutSine);
+                Debug.Log($"Move order {order.OrderIndex}");
             }
 
-            AlignObjects();
+            //AlignObjects();
             DOVirtual.DelayedCall(0.5f, () =>
             {
                 foreach (var order in newOrders)
@@ -120,10 +140,10 @@ public class OrderManagerEndless : OrderManager
         completeThreshold = 0;
         _waitingComplete.Clear();
     }
-    public override void AlignObjects()
-    {
-        StartCoroutine(IAlignObjects());
-    }
+    //public override void AlignObjects()
+    //{
+    //    StartCoroutine(IAlignObjects());
+    //}
     public override IEnumerator IAlignObjects()
     {
         yield return new WaitForSeconds(delayAlignOrders);
@@ -140,7 +160,8 @@ public class OrderManagerEndless : OrderManager
     }
     public override void PlayAppearOrders()
     {
-        DOVirtual.DelayedCall(.01f, () =>
+        Debug.Log("PlayAppearOrders");
+        DOVirtual.DelayedCall(.1f, () =>
         {
             for (int i = 0; i < _listOrders.Count; i++)
             {
@@ -149,8 +170,11 @@ public class OrderManagerEndless : OrderManager
 
                 // 👇 Offset sẵn theo index
                 var startX = RightStartPos.position.x;
-                Debug.Log($"StartPos for order {i}: {startX}");
-                var startPos = new Vector3(startX, 0, 0);
+
+                // tạo khoảng cách khi spawn
+                float spacing = 2.6f;
+                var startPos = new Vector3(startX + i * spacing, 0, 0);
+
                 order.transform.localPosition = startPos;
             }
 
@@ -178,7 +202,7 @@ public class OrderManagerEndless : OrderManager
         {
             order.transform.DOLocalMove(
                 _listOrderLocalPositions[order.OrderIndex],
-                0.65f
+                0.95f
             ).SetEase(Ease.OutCubic);
 
             GameLogicHandler.Instance.AppearNextOrder(order, true);

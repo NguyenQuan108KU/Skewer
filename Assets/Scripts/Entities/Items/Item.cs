@@ -225,8 +225,8 @@ public class Item : EntityBase
   }
   public void SwitchSlot(SlotBase slot)
   {
-    StopCoroutine(smokeRoutine);
-    itemBehaviorSO.SwitchSlot(this, slot);
+        //StopCoroutine(smokeRoutine);
+        itemBehaviorSO.SwitchSlot(this, slot);
   }
 
   public void OnIntoSlot()
@@ -249,7 +249,6 @@ public class Item : EntityBase
   {
     slot.AddItem(this);
     SetPrimary(true);
-
     if (this.slot != null)
     {
       this.slot.ItemOut();

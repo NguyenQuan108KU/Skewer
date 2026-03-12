@@ -14,12 +14,11 @@ public class OrderEntity : GrillBase
 
     public GameObject tick;
     public int orderIndex;
-    public bool active = false;
+   public bool active = false;
   public bool ready = false;
-
-  public int itemIdTarget = 0;
+    public int itemIdTarget = 0;
   public int maxItems = 0;
-  public int MaxItems => maxItems;
+    public int MaxItems => maxItems;
 
   public int ItemIdTarget => itemIdTarget;
   public bool IsActive => active;
@@ -132,6 +131,14 @@ public class OrderEntity : GrillBase
     }
     orderEntityVisual.PlayComplete(onComplete);
   }
+  public void PlayCompleteLeft(Action onComplete)
+  {
+    foreach (var slot in slots)
+    {
+      slot.GetItem()?.OnComplete();
+    }
+    orderEntityVisual.PlayCompleteLeft(onComplete);
+  }
     public void CloseLib()
     {
         orderEntityVisual.PlayEndlessClose();
@@ -159,6 +166,31 @@ public class OrderEntity : GrillBase
         var targetPos = transform.localPosition + Vector3.right * 50;    //8
         transform.DOLocalMove(targetPos, 2f).SetEase(orderEntityVisual.upCurve);
         DOVirtual.DelayedCall(0.5f, () =>
+        {
+            Destroy(gameObject);
+        });
+    }
+    //public virtual void MoveOutLeft()
+    //{
+    //    var targetPos = transform.localPosition + Vector3.left * 50;    //8
+    //    transform.DOLocalMove(targetPos, 2f).SetEase(orderEntityVisual.upCurve);
+    //    DOVirtual.DelayedCall(0.5f, () =>
+    //    {
+    //        Destroy(gameObject);
+    //    });
+    //}
+    public virtual void MoveOutLeft()
+    {
+        Vector3 startPos = transform.localPosition;
+        Vector3 rightOffset = startPos + Vector3.right * 0.5f;   // nhích phải chút
+        Vector3 targetPos = startPos + Vector3.left * 50;        // bay trái như cũ
+
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(transform.DOLocalMove(rightOffset, 0.15f)); // nhích phải
+        seq.Append(transform.DOLocalMove(targetPos, 2f).SetEase(orderEntityVisual.upCurve)); // bay trái
+
+        seq.OnComplete(() =>
         {
             Destroy(gameObject);
         });

@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class OrderManagerFake : OrderManager
 {
-
+    public override void Start()
+    {
+        
+    }
 }

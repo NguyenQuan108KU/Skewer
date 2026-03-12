@@ -24,6 +24,7 @@ public class SoundManager : SingletonBase<SoundManager>
   [SerializeField] private AudioClip boxClosed;
   [SerializeField] private AudioClip soundEasy;
   [SerializeField] private AudioClip soundHard;
+  [SerializeField] private AudioClip soundFalse;
   [SerializeField] private List<AudioClip> obstacleIceSfxList;
   public void PlaySound(AudioClip audioClip, float volume = 1)
   {
@@ -91,6 +92,10 @@ public class SoundManager : SingletonBase<SoundManager>
             case SoundType.Hard:
                 if (!soundHard) return;
                 PlaySound(soundHard);
+                break; 
+               case SoundType.False:
+                if (!soundFalse) return;
+                PlaySound(soundFalse);
                 break;
             default:
         Debug.LogWarning("Sound type not handled: " + soundType);
@@ -123,5 +128,6 @@ public enum SoundType
   Tuttkile,
   BoxClosed,
   Easy,
-  Hard
+  Hard,
+  False
 }

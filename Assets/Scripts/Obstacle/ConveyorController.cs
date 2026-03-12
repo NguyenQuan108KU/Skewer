@@ -8,12 +8,12 @@ public class ConveyorController : EntityBase
 {
   public override EntityType entityType => EntityType.Conveyor;
   [SerializeField] protected MoveType moveType;
-  protected ConveyorData conveyData;
+  public ConveyorData conveyData;
   [SerializeField] protected Transform container;
   public Vector3 startPosition;
     public Vector3 endPosition;
   public List<PrimaryGrill> grills;
-  protected float spacing = 4f;
+  public float spacing = 4f;
   protected Vector3 direction;
   protected Vector3 conveySpeed;
   protected Vector3 visualSpeed;
@@ -64,8 +64,8 @@ public class ConveyorController : EntityBase
     if (conveyData.grillIds.Count == 0) return;
 
     int count = conveyData.grillIds.Count;
-    startPosition = transform.position - (moveType == MoveType.Horizontal ? Vector3.right : Vector3.up) * spacing * 0.5f * count;
-    endPosition = transform.position + (moveType == MoveType.Horizontal ? Vector3.right : Vector3.up) * spacing * 0.5f * count;
+    startPosition = transform.position - (moveType == MoveType.Horizontal ? Vector3.right : Vector3.up) * spacing * 0.55f * count;
+    endPosition = transform.position + (moveType == MoveType.Horizontal ? Vector3.right : Vector3.up) * spacing * 0.55f * count;
     if (conveyData.speed < 0)
     {
       var temp = startPosition;
@@ -86,7 +86,7 @@ public class ConveyorController : EntityBase
     direction = moveType == MoveType.Horizontal
             ? (conveyData.speed > 0 ? Vector3.right : Vector3.left)
             : (conveyData.speed > 0 ? Vector3.up : Vector3.down);
-        StartMovement();
+        //StartMovement();
     }
 
   private void StartMovement()

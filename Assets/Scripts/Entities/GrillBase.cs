@@ -10,7 +10,8 @@ public abstract class GrillBase : EntityBase
   protected int lockState;
   public bool IsLock => lockState > 0;
   protected bool isOnConveyor;
-  [Header("Behavior SO")]
+    public bool isAccept;
+    [Header("Behavior SO")]
   [SerializeField] protected GrillBaseBehaviorSO grillBaseBehaviorSO;
 
   public GrillBaseBehaviorSO GrillBaseBehaviorSO => grillBaseBehaviorSO;

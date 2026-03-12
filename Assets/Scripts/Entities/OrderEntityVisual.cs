@@ -33,9 +33,11 @@ public class OrderEntityVisual : MonoBehaviour
 
   public void PlayComplete(Action onComplete)
   {
-
-    // Effect
     StartCoroutine(IComplete(onComplete));
+  }
+  public void PlayCompleteLeft(Action onComplete)
+  {
+    StartCoroutine(ICompleteLeft(onComplete));
   }
     
   private IEnumerator IComplete(Action onComplete)
@@ -52,6 +54,21 @@ public class OrderEntityVisual : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         var orderEntity = transform.parent.GetComponent<OrderEntity>();
         orderEntity.MoveOut();
+    }
+  private IEnumerator ICompleteLeft(Action onComplete)
+  {
+        imageLid.gameObject.SetActive(true);
+        imageLid.transform.localPosition = Vector3.up * 8;
+        imageLid.transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(downCurve);
+        yield return new WaitForSeconds(0.3f);
+        completeEffect.Play();
+        // SOUND
+        SoundManager.Instance.PlaySound(SoundType.ItemMerge);
+        onComplete?.Invoke();
+        OnOrderDone?.Invoke(this, EventArgs.Empty);
+        yield return new WaitForSeconds(0.4f);
+        var orderEntity = transform.parent.GetComponent<OrderEntity>();
+        orderEntity.MoveOutLeft();
     }
     //=====================Endless====================
     public void PlayEndlessClose()

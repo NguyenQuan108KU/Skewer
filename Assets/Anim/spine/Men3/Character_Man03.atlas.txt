@@ -1,0 +1,43 @@
+Character_Man03.png
+size:348,348
+filter:Linear,Linear
+pma:true
+scale:0.5
+Layer 3
+bounds:274,135,36,14
+Layer 4
+bounds:274,251,68,95
+Layer 5
+bounds:205,130,67,216
+Layer 6
+bounds:146,118,57,228
+offsets:0,0,58,228
+Layer 7
+bounds:132,54,27,12
+rotate:90
+body
+bounds:2,83,142,263
+offsets:0,224,176,487
+eye_L
+bounds:132,24,8,8
+eye_R
+bounds:324,231,7,7
+eyebow_L
+bounds:324,240,22,9
+eyebow_R
+bounds:312,136,13,7
+offsets:0,0,13,8
+rotate:90
+eyelid_L
+bounds:132,34,18,12
+rotate:90
+eyelid_R
+bounds:205,118,11,10
+offsets:0,1,12,12
+hand_l3
+bounds:274,151,48,98
+hand_r3
+bounds:146,23,113,93
+hand_r4
+bounds:2,5,76,128
+rotate:90

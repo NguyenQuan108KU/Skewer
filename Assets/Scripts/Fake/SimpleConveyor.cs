@@ -7,9 +7,15 @@ public class SimpleConveyor : MonoBehaviour
     public Transform limit;
     public float speed = 2f;
     public float spacing = 1.2f;
+    private bool conveyorRunning = false;
 
     void Update()
     {
+        if(Input.GetMouseButtonDown(0) && !conveyorRunning)
+        {
+            conveyorRunning = true;
+        }
+        if (!conveyorRunning) return;
         for (int i = objects.Count - 1; i >= 0; i--)
         {
             if (objects[i] == null)

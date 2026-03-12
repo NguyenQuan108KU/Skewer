@@ -28,10 +28,10 @@ public class GameplayController : SingletonBase<GameplayController>
   [Header("Limit Move")]
   [LunaPlaygroundField(fieldSection: "Limit Move")]
   public int totalClickItem = 0;
-  [HideInInspector] private int countClickItem = 0;
+  public int countClickItem = 0;
   [LunaPlaygroundField(fieldSection: "Limit Move")]
   public int totalOrder = 0;
-  [HideInInspector] private int countOrder = 0;
+  public int countOrder = 0;
 
   public bool isReady = false;
   private void Awake()
@@ -43,7 +43,7 @@ public class GameplayController : SingletonBase<GameplayController>
   {
     GameLogicHandler.Instance.OnCompleteCollectItem += ((OrderEntity orderEntity) =>
     {
-      countOrder++;
+        countOrder++;
     });
   }
   public void OnStartGame()
@@ -90,7 +90,6 @@ public class GameplayController : SingletonBase<GameplayController>
       GoToStore();
       return;
     }
-    countClickItem++;
     Vector3 touchPosition = Camera.main.ScreenToWorldPoint(mousePos);
     var col = Physics2D.OverlapPoint(touchPosition, layerMaskItem);
     if (col)
@@ -99,7 +98,8 @@ public class GameplayController : SingletonBase<GameplayController>
       if (itemTmp != null)
       {
         itemTmp.OnHandleMouseDown();
-      }
+                countClickItem++;
+            }
     }
   }
 

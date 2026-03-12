@@ -31,7 +31,7 @@ public class ItemBehaviorSO_SkewerJam : ItemBehaviorSO
 
     public override void OnMouseDown(Item item)
     {
-        if (!item.isPrimary || item.IsSelected || item.IsLocked || item.Slot.GetGrill().IsLock) return;
+        //if (!item.isPrimary || item.IsSelected || item.IsLocked || item.Slot.GetGrill().IsLock) return;
         SoundManager.Instance.PlaySound(SoundType.ItemPick);
 
         selectedItem = item;

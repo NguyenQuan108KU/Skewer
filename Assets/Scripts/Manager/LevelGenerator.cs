@@ -27,7 +27,7 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
   }
   public void GenerateLevel()
   {
-        ClearLevel();
+        //ClearLevel();
         PrimaryGrillIce.primaryGrillIces.Clear(); 
         _levelData = JsonConvert.DeserializeObject<LevelData_SkewerJam>(levelDataFile.text);
     _levelData = ValidateLevelData(_levelData);
@@ -111,7 +111,7 @@ public class LevelGenerator : SingletonBase<LevelGenerator>
   private LevelData_SkewerJam ValidateLevelData(LevelData_SkewerJam levelData)
   {
     var levelDataSkewerJam = levelData.CloneSkewerJam();
-    levelDataSkewerJam.numberOfWaitingGrill = 3;
+    levelDataSkewerJam.numberOfWaitingGrill = 5;
 
     // 
     levelDataSkewerJam.rescueCondition = new RescueCondition();

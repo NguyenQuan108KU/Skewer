@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Intro : MonoBehaviour
 {
+    [LunaPlaygroundField(fieldSection: "2 Level")]
     public bool isLevel2;
     public GameObject buttonStore;
     public List<DataOrder> dataOrders = new List<DataOrder>();

@@ -215,7 +215,8 @@ public class PrimaryGrill : GrillBase
         {
             OnClosedLib();
         }
-    UpdateSubGrills();
+        Debug.Log("Main Layer Empty");
+        UpdateSubGrills();
     onMainLayerEmpty?.Invoke(this);
 
   }

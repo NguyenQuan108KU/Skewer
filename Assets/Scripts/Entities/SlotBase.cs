@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SlotBase : MonoBehaviour
 {
-  [SerializeField] protected GrillBase grill;
+  [SerializeField] public GrillBase grill;
   [SerializeField] protected Transform container;
   public int id { get; private set; }
   [SerializeField] protected Item item;

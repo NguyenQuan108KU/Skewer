@@ -1682,7 +1682,7 @@ MonoBehaviour:
   levelDataFile: {fileID: 4900000, guid: 98b9ee0bf6b7a1448b7b602dc10ed6ac, type: 3}
   grillManager: {fileID: 195646738}
   itemDataList: []
-  itemSO: {fileID: 11400000, guid: 1276f98b72787634785d8408898f3941, type: 2}
+  itemSO: {fileID: 11400000, guid: 04223052d0b8abb4b8a5a709603319cd, type: 2}
 --- !u!1 &277709040
 GameObject:
   m_ObjectHideFlags: 0

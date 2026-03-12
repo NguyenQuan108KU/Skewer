@@ -48,6 +48,15 @@ EditorBuildSettings:
     path: Assets/Scenes/SkewerJam/2Levels.unity
     guid: eefae89ca12f53241b2d816174b52cab
   - enabled: 1
-    path: Assets/Scenes/SkewerJam/CVYBeltTime 1.unity
+    path: Assets/Scenes/SkewerJam/2Levels.unity
     guid: e45e5e54376f72f4aa8685a65a0e7246
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/EasterOrder.unity
+    guid: 4e398f2b5f10c7948b1c7a1e17275718
+  - enabled: 1
+    path: Assets/Scenes/ConveyorSort.unity
+    guid: 0ae9c75851fbbda4f8f4825b926d3f72
+  - enabled: 1
+    path: Assets/Scenes/SkewerJam/SoloTrayOrder.unity
+    guid: 0e21234ec5eeb774b9558e953981231f
   m_configObjects: {}

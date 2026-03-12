@@ -3052,6 +3052,9 @@ MonoBehaviour:
   warning: {fileID: 0}
   sfxTuttkile: {fileID: 0}
   boxClosed: {fileID: 0}
+  soundEasy: {fileID: 0}
+  soundHard: {fileID: 0}
+  soundFalse: {fileID: 0}
   obstacleIceSfxList: []
 --- !u!4 &107172470
 Transform:
@@ -7575,9 +7578,11 @@ MonoBehaviour:
   - {fileID: 800888257}
   - {fileID: 740832558}
   - {fileID: 614672494}
+  isAccept: 0
   grillBaseBehaviorSO: {fileID: 0}
   container: {fileID: 2056632566}
   orderEntityVisual: {fileID: 1359233456}
+  tick: {fileID: 0}
   orderIndex: 0
   active: 0
   ready: 0
@@ -11744,9 +11749,11 @@ MonoBehaviour:
   - {fileID: 826798124}
   - {fileID: 1173067543}
   - {fileID: 1068484413}
+  isAccept: 0
   grillBaseBehaviorSO: {fileID: 0}
   container: {fileID: 805666952}
   orderEntityVisual: {fileID: 2063832433}
+  tick: {fileID: 0}
   orderIndex: 0
   active: 0
   ready: 0
@@ -15799,7 +15806,9 @@ MonoBehaviour:
   panelLoseTime: {fileID: 542826977}
   particleWin: {fileID: 0}
   totalClickItem: 0
+  countClickItem: 0
   totalOrder: 0
+  countOrder: 0
   isReady: 0
   isCallFinishGame: 0
 --- !u!114 &964528227
@@ -29838,9 +29847,11 @@ MonoBehaviour:
   - {fileID: 1885547299}
   - {fileID: 1021530167}
   - {fileID: 603037121}
+  isAccept: 0
   grillBaseBehaviorSO: {fileID: 0}
   container: {fileID: 1973785188}
   orderEntityVisual: {fileID: 1941178095}
+  tick: {fileID: 0}
   orderIndex: 0
   active: 0
   ready: 0
@@ -31204,6 +31215,7 @@ MonoBehaviour:
   distance: 2.6
   rightStartPos: {fileID: 439233724}
   leftStartPos: {fileID: 1540088102}
+  _nextOrderIndex: 0
   _listOrderLocalPositions: []
   _listOrders: []
   dataOrders:
@@ -43190,6 +43202,7 @@ MonoBehaviour:
   waitingGrillManager: {fileID: 1127895920}
   itemManager: {fileID: 1361843884}
   conveyorManager: {fileID: 277709042}
+  isStartLevel2: 0
 --- !u!1 &2063832432
 GameObject:
   m_ObjectHideFlags: 0
@@ -56441,9 +56454,11 @@ MonoBehaviour:
   - {fileID: 7202874267654579459}
   - {fileID: 7354308314380626404}
   - {fileID: 5405716371344252474}
+  isAccept: 0
   grillBaseBehaviorSO: {fileID: 0}
   container: {fileID: 2474575533926158456}
   orderEntityVisual: {fileID: 5913661689819127384}
+  tick: {fileID: 0}
   orderIndex: 0
   active: 0
   ready: 0

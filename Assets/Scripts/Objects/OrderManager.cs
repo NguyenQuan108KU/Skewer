@@ -30,7 +30,7 @@ public class OrderManager : SingletonBase<OrderManager>
     public List<OrderEntity> ListOrders => _listOrders;
     [SerializeField] public List<DataOrder> dataOrders = new List<DataOrder>();
     public List<DataCharacter> dataCharacters = new List<DataCharacter>();
-    void Start()
+    public virtual void Start()
     {
         Init();
     }
@@ -97,7 +97,7 @@ public class OrderManager : SingletonBase<OrderManager>
                     var orderIndex = orderEntity.OrderIndex;
                     _listOrders.Remove(orderEntity);
                     var checkNextOrder = OrderHelper.CheckCreateNextOrder();
-                    orderEntity.PlayComplete(() =>
+                    orderEntity.PlayCompleteLeft(() =>
                     {
 
                         GameLogicHandler.Instance.CompleteCollectItem(orderEntity);
