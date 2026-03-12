@@ -12,7 +12,7 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private List<TextPraiseEffectData> textPraiseEffectDataList;
 
     public AudioSource sourceSpeak;
-    [LunaPlaygroundField("Sound Praise", 3, "Sounds")]
+    //[LunaPlaygroundField("Sound Praise", 3, "Sounds")]
     public bool HaveSound = true;
     private Queue<int> recentIndexes = new Queue<int>();
     private const int MaxRecent = 1;

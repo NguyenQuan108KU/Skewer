@@ -54,7 +54,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SkewerJam/EasterOrder.unity
     guid: 4e398f2b5f10c7948b1c7a1e17275718
   - enabled: 1
-    path: Assets/Scenes/ConveyorSort.unity
+    path: Assets/Scenes/ConveyorSortOrder.unity
     guid: 0ae9c75851fbbda4f8f4825b926d3f72
   - enabled: 1
     path: Assets/Scenes/SkewerJam/SoloTrayOrder.unity

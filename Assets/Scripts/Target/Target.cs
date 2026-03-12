@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-  [LunaPlaygroundField(fieldSection: "Target Settings")]
+  //[LunaPlaygroundField(fieldSection: "Target Settings")]
   public bool HaveTarget = true;
   public TMP_Text targetText;
   public int currentTarget;
-  [LunaPlaygroundField(fieldSection: "Target Settings")]
+  //[LunaPlaygroundField(fieldSection: "Target Settings")]
   public int maxTarget = 10;
   public Transform waitingSlot;
   public bool isUITarget = false;

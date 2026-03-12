@@ -12,7 +12,7 @@ public class GameplayController : SingletonBase<GameplayController>
   public GameState gameState = GameState.Loading;
   public EndCard endCard;
   private Item itemTmp = null;
-  [LunaPlaygroundField(fieldSection: "Game Settings")]
+  //[LunaPlaygroundField(fieldSection: "Game Settings")]
   public bool HaveBGM = true;
   public static event Action OnFinishGame;
   public static event Action OnGameObjectFinish;
@@ -26,10 +26,10 @@ public class GameplayController : SingletonBase<GameplayController>
 
 
   [Header("Limit Move")]
-  [LunaPlaygroundField(fieldSection: "Limit Move")]
+  //[LunaPlaygroundField(fieldSection: "Limit Move")]
   public int totalClickItem = 0;
   public int countClickItem = 0;
-  [LunaPlaygroundField(fieldSection: "Limit Move")]
+  //[LunaPlaygroundField(fieldSection: "Limit Move")]
   public int totalOrder = 0;
   public int countOrder = 0;
 

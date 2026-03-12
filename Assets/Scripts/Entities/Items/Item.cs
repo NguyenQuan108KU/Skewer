@@ -1,4 +1,4 @@
-
+﻿
 
 using System.Collections;
 using DarkTonic.PoolBoss;
@@ -229,13 +229,20 @@ public class Item : EntityBase
         itemBehaviorSO.SwitchSlot(this, slot);
   }
 
-  public void OnIntoSlot()
-  {
-    transform.localPosition = Vector3.zero;
-    visual.OnIntoSlot();
-    slot.OnItemIntoSlot();
-  }
-  public virtual ItemData GetCurrentItemData()
+    public void OnIntoSlot()
+    {
+        transform.localPosition = Vector3.zero;
+        visual.OnIntoSlot();
+        slot.OnItemIntoSlot();
+
+        OrderEntity order = slot.GetComponentInParent<OrderEntity>();
+        if (order != null)
+        {
+            order.itemArrivedCount++;
+            order.UpdateText();
+        }
+    }
+    public virtual ItemData GetCurrentItemData()
   {
     ItemData itemData = new ItemData()
     {
@@ -245,21 +252,42 @@ public class Item : EntityBase
     };
     return itemData;
   }
-  public void MoveToPrimary(SlotBase slot, int index)
-  {
-    slot.AddItem(this);
-    SetPrimary(true);
-    if (this.slot != null)
+    public void MoveToPrimary(SlotBase newSlot, int index)
     {
-      this.slot.ItemOut();
+        SlotBase oldSlot = this.slot;   // lưu slot cũ
+
+        newSlot.AddItem(this);
+        SetPrimary(true);
+
+        if (this.slot != null)
+        {
+            this.slot.ItemOut();
+        }
+
+        this.slot = newSlot;
+
+        float delay = 0.1f * index;
+
+        transform.DOScale(1, 0.25f).SetDelay(delay).SetEase(Ease.OutBack);
+
+        transform.DOLocalMove(Vector3.zero, 0.25f)
+            .SetEase(Ease.InSine)
+            .SetDelay(delay)
+            .OnComplete(() =>
+            {
+                OnIntoSlot();
+
+                if (oldSlot != null)
+                {
+                    Destroy(oldSlot.gameObject);   // destroy slot cũ
+                }
+            });
+
+        transform.DOLocalRotate(Vector3.zero, 0.25f)
+            .SetDelay(delay)
+            .SetEase(Ease.Linear);
     }
-    this.slot = slot;
-    float delay = 0.1f * index;
-    transform.DOScale(1, 0.25f).SetDelay(delay).SetEase(Ease.OutBack);
-    transform.DOLocalMove(Vector3.zero, 0.25f).SetEase(Ease.InSine).SetDelay(delay).OnComplete(OnIntoSlot);
-    transform.DOLocalRotate(Vector3.zero, 0.25f).SetDelay(delay).SetEase(Ease.Linear);
-  }
-  public ItemVisual GetVisual()
+    public ItemVisual GetVisual()
   {
     return visual;
   }

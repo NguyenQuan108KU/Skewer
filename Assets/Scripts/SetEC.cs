@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SetEC : MonoBehaviour
 {
-    [LunaPlaygroundField(fieldSection: "EC Setting")]
+    //[LunaPlaygroundField(fieldSection: "EC Setting")]
     public bool isECLoseTimer;
 
     public GameObject ecLoseTimer;

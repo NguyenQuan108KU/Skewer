@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class TimerManager : MonoBehaviour
 {
-    [LunaPlaygroundField(fieldSection: "Timer Settings")]
+    //[LunaPlaygroundField(fieldSection: "Timer Settings")]
     public float timer = 60;
     public TMP_Text timerText;
     private bool IsStart = false;
-    [LunaPlaygroundField(fieldSection: "Timer Settings")]
+    //[LunaPlaygroundField(fieldSection: "Timer Settings")]
     public bool haveTimer = true;
-    [LunaPlaygroundField(fieldSection: "Timer Settings")]
+    //[LunaPlaygroundField(fieldSection: "Timer Settings")]
     public bool isShowUiTimer = true;
     public Slider slider;
     [SerializeField] private bool isFormatTimeMMSS = true;

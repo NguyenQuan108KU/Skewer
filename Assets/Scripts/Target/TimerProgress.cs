@@ -11,10 +11,10 @@ public class TimerProgress : MonoBehaviour
   public Sprite fillImageRed;
   public Image fillImage;
   public Slider slider;
-  [LunaPlaygroundField(fieldSection: "Timer Settings")]
+  //[LunaPlaygroundField(fieldSection: "Timer Settings")]
   public float timer = 60;
   public TMP_Text timerText;
-  [LunaPlaygroundField(fieldSection: "Timer Settings")]
+  //[LunaPlaygroundField(fieldSection: "Timer Settings")]
   public bool haveTimer = true;
   private bool IsStart = false;
   [SerializeField] private bool isFormatTimeMMSS = true;

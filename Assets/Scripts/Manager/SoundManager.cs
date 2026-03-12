@@ -8,7 +8,7 @@ public class SoundManager : SingletonBase<SoundManager>
   [SerializeField] private AudioSource bgmSource;
   [SerializeField] private AudioSource sfxSource;
 
-  [LunaPlaygroundAsset(fieldSection: "Background Settings")]
+  //[LunaPlaygroundAsset(fieldSection: "Background Settings")]
   [SerializeField] private AudioClip BGM;
   [SerializeField] private AudioClip Win;
   [SerializeField] private AudioClip Lose;

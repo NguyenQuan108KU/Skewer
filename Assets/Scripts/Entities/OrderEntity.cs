@@ -3,11 +3,14 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 public class OrderEntity : GrillBase
 {
-  [Header("Order Entity Visual")]
+    public int itemArrivedCount = 0;
+    public TextMeshPro text;
+    [Header("Order Entity Visual")]
   [SerializeField] protected Transform container;
   public override EntityType entityType => EntityType.PrimaryGrill;
   [SerializeField] protected OrderEntityVisual orderEntityVisual;
@@ -154,7 +157,7 @@ public class OrderEntity : GrillBase
 
     public virtual void MoveOut()
   {
-    var targetPos = transform.localPosition + Vector3.up * 8;    //8
+    var targetPos = transform.localPosition + Vector3.up * 15;    //8
     transform.DOLocalMove(targetPos, 0.3f).SetEase(orderEntityVisual.upCurve);
     DOVirtual.DelayedCall(0.3f, () =>
     {
@@ -194,5 +197,12 @@ public class OrderEntity : GrillBase
         {
             Destroy(gameObject);
         });
+    }
+    public void UpdateText()
+    {
+        if (text != null)
+        {
+            text.text = itemArrivedCount.ToString() + "/3";
+        }
     }
 }

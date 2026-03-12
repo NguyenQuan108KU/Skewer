@@ -9,9 +9,9 @@ public class OrderManager : SingletonBase<OrderManager>
 {
     // Start is called before the first frame update
     // [SerializeField] private OrderManagerSO orderManagerSO;
-    [LunaPlaygroundField(fieldSection: "Order Settings")]
+    //[LunaPlaygroundField(fieldSection: "Order Settings")]
     [SerializeField] public int maxOrder = 4;
-    [LunaPlaygroundField(fieldSection: "Order Settings")]
+    //[LunaPlaygroundField(fieldSection: "Order Settings")]
 
     [SerializeField] private int defaultNumberOfReadyOrder = 4;
     [SerializeField] private OrderEntityConfigSO orderEntityConfigSO;
@@ -97,18 +97,18 @@ public class OrderManager : SingletonBase<OrderManager>
                     var orderIndex = orderEntity.OrderIndex;
                     _listOrders.Remove(orderEntity);
                     var checkNextOrder = OrderHelper.CheckCreateNextOrder();
-                    orderEntity.PlayCompleteLeft(() =>
+                    orderEntity.PlayComplete(() =>
                     {
 
                         GameLogicHandler.Instance.CompleteCollectItem(orderEntity);
                         if (checkNextOrder == false)
                         {
-                            AlignObjects();
+                            //AlignObjects();
                         }
                     });
                     if (checkNextOrder)
                     {
-                        CreateNextOrder(orderIndex);
+                       // CreateNextOrder(orderIndex);
                     }
                     GameLogicHandler.Instance.CollectItem(orderEntity);
                 }
@@ -145,7 +145,7 @@ public class OrderManager : SingletonBase<OrderManager>
             orderEntity.SetOrderIndex(i);
         }
 
-        PlayAppearOrders();
+        //PlayAppearOrders();
     }
 
     public OrderEntity CreateNextOrder(int id, int num)

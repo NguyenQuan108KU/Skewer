@@ -5,7 +5,7 @@ using UnityEngine;
 public class CTAStore : SingletonBase<CTAStore>
 {
     [Header("CTA Store Settings")]
-    [LunaPlaygroundField("Target", 0, "Target")]
+    //[LunaPlaygroundField("Target", 0, "Target")]
     public int target;
     public int total;
     public bool isEndGame;
